@@ -1,0 +1,12 @@
+apiVersion: workload.kalypso.io/v1alpha1
+kind: WorkloadRegistration
+metadata:
+  name: prometheus-svc
+  labels:
+    type: service
+spec:
+  workload:
+    repo: https://github.com/microsoft/kalypso-svc-src
+    branch: main
+    path: ./prometheus/workload.yaml
+  workspace: platform-team

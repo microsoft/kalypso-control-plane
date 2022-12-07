@@ -2,13 +2,13 @@
 
 This is where platform team “models” the fleet. This repository is supposed to be human oriented, easy to understand, update, and review.  It has branches that represent environment stages. 
 
-This repository operates with the abstractions like `workloads`, `cluster-types`, `configs` and `templates`.
+This repository operates with the abstractions like `Workload Registration`, `Cluster Types`, `Configs` and `Templates`.
 
-## Workload
+## Workload Registration
 
 TBD
 
-## Cluster-type
+## Cluster Type
 
 TBD
 
