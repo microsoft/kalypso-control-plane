@@ -6,3 +6,5 @@ metadata:
     region: east-us
     restricted: true
     edge: true
+spec:
+  reconciler: arc-flux

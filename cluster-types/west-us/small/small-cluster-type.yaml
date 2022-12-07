@@ -5,4 +5,5 @@ metadata:
   labels: 
     region: west-us
     size: small
-
+spec:
+  reconciler: argocd

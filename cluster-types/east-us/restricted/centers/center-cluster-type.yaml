@@ -5,3 +5,5 @@ metadata:
   labels: 
     region: east-us
     restricted: true
+spec:
+  reconciler: arc-flux
