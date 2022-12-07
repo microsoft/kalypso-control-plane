@@ -1,7 +1,7 @@
 apiVersion: workload.kalypso.io/v1alpha1
 kind: WorkloadRegistration
 metadata:
-  name: voting-app
+  name: hello-world-app
   labels:
     type: application
 spec:
