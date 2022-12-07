@@ -1,0 +1,8 @@
+apiVersion: cluster.kalypso.io/v1alpha1
+kind: ClusterType
+metadata:
+  name: drone
+  labels: 
+    region: east-us
+    restricted: true
+    edge: true

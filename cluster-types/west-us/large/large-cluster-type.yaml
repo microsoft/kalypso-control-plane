@@ -1,0 +1,8 @@
+apiVersion: cluster.kalypso.io/v1alpha1
+kind: ClusterType
+metadata:
+  name: large
+  labels: 
+    region: west-us
+    size: large
+

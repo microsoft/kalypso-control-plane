@@ -1,0 +1,7 @@
+apiVersion: cluster.kalypso.io/v1alpha1
+kind: ClusterType
+metadata:
+  name: command-center
+  labels: 
+    region: east-us
+    restricted: true

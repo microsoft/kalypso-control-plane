@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: west-us-config
+  labels:
+     platform-config: true
+     region: west-us
+data:
+  REGION: West US
+  DATABASE_URL: mysql://west:8806/mysql
