@@ -4,7 +4,7 @@ metadata:
   name: observability-policy
 spec:
   workloadSelector:
-    workspace: 
+    workspace: platform-team
     labelSelector:
       matchLabels:
         stack: observability

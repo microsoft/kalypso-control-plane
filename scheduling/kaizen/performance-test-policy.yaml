@@ -4,7 +4,7 @@ metadata:
   name: performance-test-policy
 spec:
   workloadSelector:
-    workspace: 
+    workspace: kaizen-app-team
     labelSelector:
       matchLabels:
         family: force
