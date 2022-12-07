@@ -1,0 +1,28 @@
+apiVersion: template.kalypso.io/v1alpha1
+kind: Template
+metadata:
+  name: arc-flux
+spec:
+  type: reconciler
+  templates:
+    manifests:
+      - apiVersion: clusterconfig.azure.com/v1alpha1 
+        kind: FluxConfig 
+        metadata: 
+          name: {{DEPLOYMENT_TARGET_NAME}} 
+          namespace: {{DEPLOYMENT_TARGET_NAMESPACE}} 
+        spec: 
+          scope: namespace 
+          sourceKind: GitRepository 
+          gitRepository: 
+            url: {{DEPLOYMENT_TARGET_REPO}} 
+            timeout: 10m 
+            syncInterval: 10m 
+            repositoryRef: 
+              branch: {{DEPLOYMENT_TARGET_BRANCH}} 
+          kustomizations: 
+            - name: manifests 
+              path: {{DEPLOYMENT_TARGET_PATH}} 
+              timeout: 10m 
+              syncInterval: 10 
+              prune: true 

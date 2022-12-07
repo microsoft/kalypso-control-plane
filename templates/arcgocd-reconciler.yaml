@@ -1,0 +1,22 @@
+apiVersion: template.kalypso.io/v1alpha1
+kind: Template
+metadata:
+  name: argocd  
+spec:
+  type: reconciler
+  templates:
+    manifests:
+      - apiVersion: argoproj.io/v1alpha1
+        kind: Application
+        metadata:
+          name: {{DEPLOYMENT_TARGET_NAME}}
+          namespace: {{DEPLOYMENT_TARGET_NAMESPACE}}
+        spec:
+          project: default
+          source:
+            repoURL: {{DEPLOYMENT_TARGET_REPO}} 
+            targetRevision: {{DEPLOYMENT_TARGET_BRANCH}}
+            path: {{DEPLOYMENT_TARGET_PATH}}
+          destination:
+            name: defualt
+            namespace: {{DEPLOYMENT_TARGET_NAMESPACE}}
