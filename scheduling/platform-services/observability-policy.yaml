@@ -1,0 +1,14 @@
+apiVersion: policy.kalypso.io/v1alpha1
+kind: SchedulingPolicy
+metadata:
+  name: observability-policy
+spec:
+  workloadSelector:
+    workspace: 
+    labelSelector:
+      matchLabels:
+        stack: observability
+  clusterTypeSelector:
+    labelSelector:
+      matchLabels:
+        edge: false
