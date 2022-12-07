@@ -1,0 +1,19 @@
+apiVersion: policy.kalypso.io/v1alpha1
+kind: SchedulingPolicy
+metadata:
+  name: performance-test-policy
+spec:
+  workloadSelector:
+    workspace: 
+    labelSelector:
+      matchLabels:
+        family: force
+  deploymentTargetSelector:
+    labelSelector:
+      matchLabels:
+        purpose: performance-test
+        edge: false
+  clusterTypeSelector:
+    labelSelector:
+      matchLabels:
+        size: large
