@@ -34,7 +34,7 @@ jobs:
         source_file: 'Promoted_Commit_Id.yaml'
         destination_repo: ${{ secrets.GITOPS_REPO }}
         destination_folder: '.github/tracking'
-        # destination_branch: ${{ inputs.environment }}
-        # user_email: 'agent@gitops.com'
-        # user_name: 'Git Ops'
+        destination_branch: ${{ inputs.environment }}
+        user_email: 'agent@gitops.com'
+        user_name: 'Git Ops'
         # commit_message: 'Promoting Commit_Id '${{ inputs.promoted_commit_id }}' from the control plane'
