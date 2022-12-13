@@ -1,0 +1,25 @@
+name: cd
+
+on:
+  workflow_dispatch:
+    inputs:
+      promoted_commit_id:
+        description: 'Promoted Commit Id from Main'
+        required: true
+      environment:
+        description: 'Environment to run tests against'
+        type: environment
+        required: true
+
+jobs:
+  Build_Push_Image:
+    runs-on: ubuntu-latest
+    steps:
+    - run: |
+        echo "Promoted Commit Id: $COMMIT_ID"
+        echo "Environment: $ENVIRONMENT"
+      env:
+        COMMIT_ID: ${{ inputs.promoted_commit_id }}
+        ENVIRONMENT: ${{ inputs.environment }}    
+
+

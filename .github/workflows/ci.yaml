@@ -1,0 +1,118 @@
+name: ci
+
+# on:
+#   push:
+#     branches:
+#       - main
+
+permissions:
+  packages: write
+
+env:
+  SEM_VER: 0.0.1
+  APP_NAME: rancher-hello-world
+  WORKSPACE_NAME: coral-applications 
+  IMAGE_NAME: ${{ secrets.IMAGE_NAME }} 
+
+jobs:
+  Build_Push_Image:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Source
+      uses: actions/checkout@v2.3.4
+    - name: Login to ghcr
+      uses: docker/login-action@v1 
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    - name: Generate Image Tag
+      id: generate_image_tag
+      run: |
+          IMAGE_TAG=${{ env.SEM_VER }}-${{ github.run_number }}
+          echo "IMAGE_TAG=$IMAGE_TAG" >> $GITHUB_ENV     
+          echo "::set-output name=image_tag::$IMAGE_TAG"
+    - name: Build and Push to ghcr
+      uses: docker/build-push-action@v2
+      with:
+        push: true
+        context: .
+        tags: ${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}, ${{ env.IMAGE_NAME }}:latest  
+    outputs:
+        image_tag: ${{ steps.generate_image_tag.outputs.image_tag }}
+
+ 
+ 
+  Deploy_To_Dev:
+      runs-on: ubuntu-latest
+      needs: Build_Push_Image
+      environment: dev            
+      env:
+        ENVIRONMENT_NAME: development
+      steps:
+      - name: Checkout Source
+        uses: actions/checkout@v2.3.4
+      - name: Read Image Tags
+        run: |
+          IMAGE_TAG=${{ needs.Build_Push_Image.outputs.image_tag }}          
+          echo "IMAGE_TAG=$IMAGE_TAG" >> $GITHUB_ENV
+          VERSION=$IMAGE_TAG
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+      - name: Generaate Manifests
+        run: |
+          .github/workflows/utils/generate-manifests.sh ${{ github.workspace }}/helm gen_manifests
+      - name: Create PR
+        run: |        
+          .github/workflows/utils//create-pr.sh -s ${{ github.workspace }}/gen_manifests -d ${{ secrets.MANIFESTS_FOLDER }} -r ${{ secrets.MANIFESTS_REPO }} -b dev -i ${{ github.run_number }} -t ${{ secrets.MANIFESTS_TOKEN }} -e ${{ env.ENVIRONMENT_NAME }} -m Y         
+
+  Genrate_Manifests_for_Zarf:
+      runs-on: ubuntu-latest
+      needs: [Build_Push_Image, Deploy_To_Dev]
+      environment: prod            
+      env:
+        ENVIRONMENT_NAME: production
+      steps:
+      - name: Checkout Source
+        uses: actions/checkout@v2.3.4
+      - name: Read Image Tags
+        run: |
+          VERSION=${{ needs.Build_Push_Image.outputs.image_tag }}          
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+          IMAGE_TAG=zarf
+          echo "IMAGE_TAG=$IMAGE_TAG" >> $GITHUB_ENV
+      - name: Generaate Manifests
+        run: |
+          .github/workflows/utils/generate-manifests.sh ${{ github.workspace }}/helm gen_manifests
+      - name: Create PR
+        run: |        
+          .github/workflows/utils//create-pr.sh -s ${{ github.workspace }}/gen_manifests -d ${{ secrets.MANIFESTS_FOLDER }} -r ${{ secrets.MANIFESTS_REPO }} -b prod -i ${{ github.run_number }} -t ${{ secrets.MANIFESTS_TOKEN }} -e ${{ env.ENVIRONMENT_NAME }}         
+
+
+  Package_Zarf:
+      runs-on: ubuntu-latest
+      needs: [Build_Push_Image, Genrate_Manifests_for_Zarf]
+      environment: zarf            
+      steps:
+      - name: Login to ghcr
+        uses: docker/login-action@v1 
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Update Image Tag
+        run: |        
+          IMAGE_TAG=${{ needs.Build_Push_Image.outputs.image_tag }}
+          echo "IMAGE_TAG=$IMAGE_TAG" >> $GITHUB_ENV
+          docker pull $IMAGE_NAME:$IMAGE_TAG
+          docker tag $IMAGE_NAME:$IMAGE_TAG $IMAGE_NAME:zarf
+          docker push $IMAGE_NAME:zarf
+      - name: Package Zarf archives
+        run: |        
+          echo "Package Zarf archives"
+          gh workflow run zarf-upload.yaml --ref eedorenko/app-deploy-flow -f names=$APP_NAME -f app_workspace=$WORKSPACE_NAME -f scope=application -f version=$IMAGE_TAG
+        env:
+            GITHUB_TOKEN: ${{ secrets.CP_REPO_TOKEN }}  
+            GH_REPO: ${{ secrets.CP_REPO }}
+
+
+
