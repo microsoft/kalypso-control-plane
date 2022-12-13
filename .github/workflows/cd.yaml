@@ -32,8 +32,8 @@ jobs:
         API_TOKEN_GITHUB: ${{ secrets.GITOPS_REPO_TOKEN }}
       with:
         source_file: 'Promoted_Commit_Id.yaml'
-        # destination_repo: ${{ secrets.GITOPS_REPO }}
-        # destination_folder: '.github/tracking'
+        destination_repo: ${{ secrets.GITOPS_REPO }}
+        destination_folder: '.github/tracking'
         # destination_branch: ${{ inputs.environment }}
         # user_email: 'agent@gitops.com'
         # user_name: 'Git Ops'
