@@ -10,16 +10,31 @@ on:
         description: 'Environment to run tests against'
         type: environment
         required: true
+  
+# env:
+#   TRACKING_FOLDER: 0.0.1
+#   APP_NAME: rancher-hello-world
+#   WORKSPACE_NAME: coral-applications 
+#   IMAGE_NAME: ${{ secrets.IMAGE_NAME }} 
 
 jobs:
-  Build_Push_Image:
+  promote_to_environment:
     runs-on: ubuntu-latest
     steps:
-    - run: |
-        echo "Promoted Commit Id: $COMMIT_ID"
-        echo "Environment: $ENVIRONMENT"
+    - name: Save Promoted Commit Id 
+      run: |
+        echo "Promoted_Commit_Id: $COMMIT_ID" > Promoted_Commit_Id.yaml
       env:
         COMMIT_ID: ${{ inputs.promoted_commit_id }}
-        ENVIRONMENT: ${{ inputs.environment }}    
-
-
+    - name: Pash Promoted Commit Id to GitOps repo
+      uses: dmnemec/copy_file_to_another_repo_action@main
+      env:
+        API_TOKEN_GITHUB: ${{ secrets.GITOPS_REPO_TOKEN }}
+      with:
+        source_file: 'Promoted_Commit_Id.yaml'
+        destination_repo: ${{ secrets.GITOPS_REPO }}
+        destination_folder: '.github/tracking'
+        destination_branch: ${{ inputs.environment }}
+        user_email: 'agent@gitops.com'
+        user_name: 'Git Ops'
+        commit_message: 'Promoting Commit_Id '${{ inputs.promoted_commit_id }}' from the control plane'
