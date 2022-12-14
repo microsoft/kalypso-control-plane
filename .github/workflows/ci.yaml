@@ -18,7 +18,7 @@ jobs:
     needs: Do_Checks
     steps:
     - name: Promote To Dev
-      uses: ./.github/workflows/cd.yml
+      uses: ./.github/workflows/cd.yaml
       with:
         promoted_commit_id: ${{ env.GITHUB_SHA }}
         environment: dev
