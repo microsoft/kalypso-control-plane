@@ -43,8 +43,8 @@ repo_url="${DEST_REPO#http://}"
 repo_url="${DEST_REPO#https://}"
 repo_url="https://automated:$TOKEN@$repo_url"
 
-echo "git clone $repo_url -b $DEST_BRANCH --depth 1 --single-branch"
-git clone $repo_url -b $DEST_BRANCH --depth 1 --single-branch
+# echo "git clone $repo_url -b $DEST_BRANCH --depth 1 --single-branch"
+# git clone $repo_url -b $DEST_BRANCH --depth 1 --single-branch
 repo=${DEST_REPO##*/}
 repo_name=${repo%.*}
 cd "$repo_name"
@@ -57,9 +57,9 @@ deploy_branch_name=deploy/$DEPLOY_ID/$DEST_BRANCH
 echo "Create a new branch $deploy_branch_name"
 git checkout -b $deploy_branch_name
 
-# Add generated manifests to the new deploy branch
-mkdir -p $DEST_FOLDER
-cp -r $SOURCE_FOLDER/. $DEST_FOLDER/
+# # Add generated manifests to the new deploy branch
+# mkdir -p $DEST_FOLDER
+# cp -r $SOURCE_FOLDER/. $DEST_FOLDER/
 git add -A
 echo "git status"
 git status
