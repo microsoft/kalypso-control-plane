@@ -18,6 +18,6 @@ jobs:
     needs: Do_Checks
     uses: ./.github/workflows/cd.yaml
     with:
-      promoted_commit_id: ${{ env.GITHUB_SHA }}
+      promoted_commit_id: ${{ GITHUB_SHA }}
       environment: dev
 
