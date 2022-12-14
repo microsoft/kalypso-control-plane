@@ -12,3 +12,4 @@ spec:
     labelSelector:
       matchLabels:
         edge: false
+        
