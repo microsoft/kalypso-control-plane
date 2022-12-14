@@ -35,7 +35,7 @@ jobs:
       working-directory: ${{ github.workspace }}
       run: |
           PROMOTED_COMMIT_ID=$(cat gitops/.github/tracking/Promoted_Commit_Id)
-          echo "PROMOTED_COMMIT_ID=$PROMOTED_COMMIT_ID" >> $GITHUB_ENV     
+          echo "PROMOTED_COMMIT_ID=$PROMOTED_COMMIT_ID" >> $GITHUB_ENV               
 
     - name: Checkout Main
       uses: actions/checkout@v2.3.4
@@ -52,5 +52,3 @@ jobs:
     - name: Create PR
       run: |        
         ${{ github.workspace }}/main/.github/workflows/utils//create-pr.sh -s ${{ github.workspace }}/gitops -r "https://github.com/"${{ secrets.GITOPS_REPO }} -b ${{ inputs.environment }} -i ${{ github.run_number }} -t ${{ secrets.GITOPS_REPO_TOKEN }} -e ${{ inputs.environment }} -l promoted
-
-

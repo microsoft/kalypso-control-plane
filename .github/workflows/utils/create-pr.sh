@@ -14,7 +14,7 @@ while getopts "s:d:r:b:i:t:e:m:l:" option;
         t ) TOKEN=${OPTARG};;
         e ) ENV_NAME=${OPTARG};;
         m ) AUTO_MERGE=${OPTARG};;
-        l ) LABELS=${OPTARG};;
+        l ) LABEL=${OPTARG};;
     esac
 done
 echo "List input params"
@@ -26,7 +26,7 @@ echo $DEPLOY_ID
 echo $ENV_NAME
 echo $TOKEN
 echo $AUTO_MERGE
-echo $LABELS
+echo $LABEL
 echo "end of list"
 
 set -eo pipefail  # fail on error
@@ -78,11 +78,14 @@ if [[ `git status --porcelain | head -1` ]]; then
     owner_repo="${DEST_REPO#https://github.com/}"
     echo $owner_repo
     export GITHUB_TOKEN=$TOKEN
-    pr_response=$(gh pr create --repo $repo_url --base $DEST_BRANCH --head $deploy_branch_name --title "deployment $DEPLOY_ID" --body "Deploy to $ENV_NAME" --label $LABELS)
+    pr_response=$(gh pr create --repo $repo_url --base $DEST_BRANCH --head $deploy_branch_name --title "deployment $DEPLOY_ID" --body "Deploy to $ENV_NAME" --label $LABEL)
     echo $pr_response
-    if [[ "$AUTO_MERGE" == "Y" ]]; then
-        pr_num="${pr_response##*pull/}"
-        echo $pr_num
+    pr_num="${pr_response##*pull/}"
+    echo $pr_num
+    if [ ! -z "$LABEL" ] then
+        gh pr edit $pr_num --add-label $LABEL
+    fi 
+    if [[ "$AUTO_MERGE" == "Y" ]]; then                
         gh pr merge $pr_num -m -d --repo $repo_url
     fi
 fi
