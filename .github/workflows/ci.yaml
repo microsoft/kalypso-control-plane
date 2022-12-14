@@ -20,4 +20,5 @@ jobs:
     with:
       promoted_commit_id: ${{ github.sha }}
       environment: dev
+    secrets: inherit
 
