@@ -46,10 +46,10 @@ jobs:
       working-directory: ${{ github.workspace }}
       run: |          
           mkdir manifests
-          echo "Manifests are generated for $PROMOTED_COMMIT_ID commit" >> manifests/manifests-statement.txt
+          echo "Manifests are generated for $PROMOTED_COMMIT_ID commit" >> gitops/manifests-statement.txt
 
     - name: Create PR
       run: |        
-        .github/workflows/utils//create-pr.sh -s ${{ github.workspace }}/manifests -d . -r "https://github.com/"${{ secrets.GITOPS_REPO }} -b ${{ inputs.environment }} -i ${{ github.run_number }} -t ${{ secrets.GITOPS_REPO_TOKEN }} -e ${{ inputs.environment }} -l "promoted:$PROMOTED_COMMIT_ID"
+        .github/workflows/utils//create-pr.sh -s ${{ github.workspace }}/gitops -d . -r "https://github.com/"${{ secrets.GITOPS_REPO }} -b ${{ inputs.environment }} -i ${{ github.run_number }} -t ${{ secrets.GITOPS_REPO_TOKEN }} -e ${{ inputs.environment }} -l promoted
 
 
