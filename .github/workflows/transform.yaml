@@ -45,7 +45,7 @@ jobs:
       run: |
           pwd
           ls -ltr gitops
-          PROMOTED_COMMIT_ID=$(cat gitops/./github/tracking/Promoted_Commit_Id)
+          PROMOTED_COMMIT_ID=$(cat gitops/.github/tracking/Promoted_Commit_Id)
           echo "PROMOTED_COMMIT_ID=$PROMOTED_COMMIT_ID" >> $GITHUB_ENV     
 
     - name: Checkout Main
