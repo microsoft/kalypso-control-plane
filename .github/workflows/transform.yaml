@@ -8,7 +8,7 @@ on:
 
 jobs:
   transform:
-    uses: microsoft/kalypso/.github/workflows/transform.yaml@main
+    uses: microsoft/kalypso-control-plane/.github/workflows/transform.yaml@main
     with:
       environment: ${{ github.ref_name }}
     secrets: inherit  
