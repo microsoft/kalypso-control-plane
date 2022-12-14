@@ -45,8 +45,8 @@ jobs:
     - name: Generate Manifests 
       working-directory: ${{ github.workspace }}
       run: |          
-          mkdir manifests
-          echo "Manifests are generated for $PROMOTED_COMMIT_ID commit" >> gitops/manifests-statement.txt
+          ls -ltr
+          echo "Manifests are generated for $PROMOTED_COMMIT_ID commit" > gitops/manifests-statement.txt
 
     - name: Create PR
       run: |        
