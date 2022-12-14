@@ -3,7 +3,7 @@
 
 #!/usr/bin/env bash
 
-while getopts "s:d:r:b:i:t:e:m:" option;
+while getopts "s:d:r:b:i:t:e:m:l:" option;
     do
     case "$option" in
         s ) SOURCE_FOLDER=${OPTARG};;
@@ -14,6 +14,7 @@ while getopts "s:d:r:b:i:t:e:m:" option;
         t ) TOKEN=${OPTARG};;
         e ) ENV_NAME=${OPTARG};;
         m ) AUTO_MERGE=${OPTARG};;
+        l ) LABELS=${OPTARG};;
     esac
 done
 echo "List input params"
@@ -25,6 +26,7 @@ echo $DEPLOY_ID
 echo $ENV_NAME
 echo $TOKEN
 echo $AUTO_MERGE
+echo $LABELS
 echo "end of list"
 
 set -eo pipefail  # fail on error
@@ -76,7 +78,7 @@ if [[ `git status --porcelain | head -1` ]]; then
     owner_repo="${DEST_REPO#https://github.com/}"
     echo $owner_repo
     export GITHUB_TOKEN=$TOKEN
-    pr_response=$(gh pr create --repo $repo_url --base $DEST_BRANCH --head $deploy_branch_name --title "deployment $DEPLOY_ID" --body "Deploy to $ENV_NAME")
+    pr_response=$(gh pr create --repo $repo_url --base $DEST_BRANCH --head $deploy_branch_name --title "deployment $DEPLOY_ID" --body "Deploy to $ENV_NAME" --label $LABELS)
     echo $pr_response
     if [[ "$AUTO_MERGE" == "Y" ]]; then
         pr_num="${pr_response##*pull/}"
