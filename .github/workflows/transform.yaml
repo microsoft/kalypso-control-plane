@@ -9,6 +9,6 @@ on:
 jobs:
   transform:
     uses: ./.github/workflows/transform.yaml@main
-        with:
-          environment: ${{ github.ref_name }}
-        secrets: inherit  
+    with:
+      environment: ${{ github.ref_name }}
+    secrets: inherit  
