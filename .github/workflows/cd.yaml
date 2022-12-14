@@ -24,7 +24,7 @@ jobs:
     steps:
     - name: Save Promoted Commit Id 
       run: |
-        echo "Promoted_Commit_Id: $COMMIT_ID" > Promoted_Commit_Id.yaml
+        echo "$COMMIT_ID" > Promoted_Commit_Id
       env:
         COMMIT_ID: ${{ inputs.promoted_commit_id }}
     - name: Push Promoted Commit Id to GitOps repo
@@ -32,7 +32,7 @@ jobs:
       env:
         API_TOKEN_GITHUB: ${{ secrets.GITOPS_REPO_TOKEN }}
       with:
-        source_file: 'Promoted_Commit_Id.yaml'
+        source_file: 'Promoted_Commit_Id'
         destination_repo: ${{ secrets.GITOPS_REPO }}
         destination_folder: '.github/tracking'
         destination_branch: ${{ inputs.environment }}
