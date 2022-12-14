@@ -27,6 +27,7 @@ jobs:
         echo "$COMMIT_ID" > Promoted_Commit_Id
       env:
         COMMIT_ID: ${{ inputs.promoted_commit_id }}
+        
     - name: Push Promoted Commit Id to GitOps repo
       uses: dmnemec/copy_file_to_another_repo_action@main
       env:

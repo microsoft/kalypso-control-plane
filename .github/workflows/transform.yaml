@@ -17,14 +17,6 @@ jobs:
   transform:
     runs-on: ubuntu-latest
     steps:
-    - name: Run Transformation Flow 
-      run: |
-        echo "Env: $ENVIRONMENT"
-        echo "Promoted_Commit_Id: $COMMIT_ID"
-      env:
-        COMMIT_ID: ${{ inputs.promoted_commit_id }}
-        ENVIRONMENT: ${{ inputs.environment }}
-
 
     - name: Checkout Configs
       uses: actions/checkout@v2.3.4
@@ -43,34 +35,22 @@ jobs:
     - name: Get Promoted Commit Id 
       working-directory: ${{ github.workspace }}
       run: |
-          pwd
-          ls -ltr gitops
           PROMOTED_COMMIT_ID=$(cat gitops/.github/tracking/Promoted_Commit_Id)
           echo "PROMOTED_COMMIT_ID=$PROMOTED_COMMIT_ID" >> $GITHUB_ENV     
 
     - name: Checkout Main
       uses: actions/checkout@v2.3.4
       with:
-        ref: ${{ env.PROMOTED_COMMIT_ID }}
+        ref: ${{ env.PROMOTED_COMMIT_ID }} 
 
-  
-  # transform:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #   - name: Run Transformation Flow 
-  #     run: |
-  #       echo "Promoted_Commit_Id: $COMMIT_ID" > Promoted_Commit_Id.yaml
-  #     env:
-  #       COMMIT_ID: ${{ inputs.promoted_commit_id }}
-  #   - name: Push Promoted Commit Id to GitOps repo
-  #     uses: dmnemec/copy_file_to_another_repo_action@main
-  #     env:
-  #       API_TOKEN_GITHUB: ${{ secrets.GITOPS_REPO_TOKEN }}
-  #     with:
-  #       source_file: 'Promoted_Commit_Id.yaml'
-  #       destination_repo: ${{ secrets.GITOPS_REPO }}
-  #       destination_folder: '.github/tracking'
-  #       destination_branch: ${{ inputs.environment }}
-  #       user_email: 'agent@gitops.com'
-  #       user_name: 'Git Ops'
-  #       commit_message: 'Promoting Commit_Id from the control plane'
+    - name: Generate Manifests 
+      working-directory: ${{ github.workspace }}
+      run: |          
+          mkdir manifests
+          echo "Manifests are generated for $PROMOTED_COMMIT_ID commit" >> manifests/manifests-statement.txt
+
+    - name: Create PR
+      run: |        
+        .github/workflows/utils//create-pr.sh -s manifests -d gitops -r ${{ secrets.GITOPS_REPO }} -b ${{ inputs.environment }} -i ${{ github.run_number }} -t ${{ secrets.GITOPS_REPO_TOKEN }} -e ${{ inputs.environment }}
+
+
