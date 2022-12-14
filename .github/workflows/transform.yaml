@@ -50,6 +50,6 @@ jobs:
 
     - name: Create PR
       run: |        
-        .github/workflows/utils//create-pr.sh -s manifests -d gitops -r "https://github.com/"${{ secrets.GITOPS_REPO }} -b ${{ inputs.environment }} -i ${{ github.run_number }} -t ${{ secrets.GITOPS_REPO_TOKEN }} -e ${{ inputs.environment }}
+        .github/workflows/utils//create-pr.sh -s ${{ github.workspace }}/manifests -d gitops -r "https://github.com/"${{ secrets.GITOPS_REPO }} -b ${{ inputs.environment }} -i ${{ github.run_number }} -t ${{ secrets.GITOPS_REPO_TOKEN }} -e ${{ inputs.environment }}
 
 
