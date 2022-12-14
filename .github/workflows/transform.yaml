@@ -8,7 +8,7 @@ on:
 
 jobs:
   transform:
-    uses: ./.github/workflows/transform.yaml@main
+    uses: ${{ github.repository }}/.github/workflows/transform.yaml@main
     with:
       environment: ${{ github.ref_name }}
     secrets: inherit  
