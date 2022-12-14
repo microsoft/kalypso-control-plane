@@ -82,7 +82,7 @@ if [[ `git status --porcelain | head -1` ]]; then
     echo $pr_response
     pr_num="${pr_response##*pull/}"
     echo $pr_num
-    if [ ! -z "$LABEL" ] then
+    if [[ ! -z "$LABEL" ]]; then
         gh pr edit $pr_num --add-label $LABEL
     fi 
     if [[ "$AUTO_MERGE" == "Y" ]]; then                
