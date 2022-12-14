@@ -1,7 +1,7 @@
 name: cd
 
 on:
-  workflow_dispatch:
+  workflow_call:
     inputs:
       promoted_commit_id:
         description: 'Promoted Commit Id from Main'
@@ -38,3 +38,24 @@ jobs:
         user_email: 'agent@gitops.com'
         user_name: 'Git Ops'
         commit_message: 'Promoting Commit_Id from the control plane'
+  
+  # transform:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #   - name: Run Transformation Flow 
+  #     run: |
+  #       echo "Promoted_Commit_Id: $COMMIT_ID" > Promoted_Commit_Id.yaml
+  #     env:
+  #       COMMIT_ID: ${{ inputs.promoted_commit_id }}
+  #   - name: Push Promoted Commit Id to GitOps repo
+  #     uses: dmnemec/copy_file_to_another_repo_action@main
+  #     env:
+  #       API_TOKEN_GITHUB: ${{ secrets.GITOPS_REPO_TOKEN }}
+  #     with:
+  #       source_file: 'Promoted_Commit_Id.yaml'
+  #       destination_repo: ${{ secrets.GITOPS_REPO }}
+  #       destination_folder: '.github/tracking'
+  #       destination_branch: ${{ inputs.environment }}
+  #       user_email: 'agent@gitops.com'
+  #       user_name: 'Git Ops'
+  #       commit_message: 'Promoting Commit_Id from the control plane'
