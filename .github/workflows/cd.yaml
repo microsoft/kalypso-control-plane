@@ -6,9 +6,11 @@ on:
       promoted_commit_id:
         description: 'Promoted Commit Id from Main'
         required: true
+        type: string
       environment:
         description: 'Environment to run tests against'
         required: true
+        type: string
   
 # env:
 #   TRACKING_FOLDER: 0.0.1
