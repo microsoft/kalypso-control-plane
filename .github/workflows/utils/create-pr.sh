@@ -47,7 +47,7 @@ repo_url="https://automated:$TOKEN@$repo_url"
 # git clone $repo_url -b $DEST_BRANCH --depth 1 --single-branch
 repo=${DEST_REPO##*/}
 repo_name=${repo%.*}
-cd "$repo_name"
+cd $SOURCE_FOLDER
 echo "git status"
 git status
 
