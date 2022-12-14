@@ -1,0 +1,14 @@
+name: transform
+
+on:
+  push:
+    branches:
+      - '*'
+      - '!main'
+
+jobs:
+  transform:
+    uses: ./.github/workflows/transform.yaml@main
+        with:
+          environment: ${{ github.ref_name }}
+        secrets: inherit  
