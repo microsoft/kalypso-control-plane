@@ -14,7 +14,6 @@ jobs:
           echo "Do Some Checks"
  
   Start_CD:
-    # runs-on: ubuntu-latest
     needs: Do_Checks
     uses: ./.github/workflows/cd.yaml
     with:
