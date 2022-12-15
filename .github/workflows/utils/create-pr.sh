@@ -78,7 +78,7 @@ if [[ `git status --porcelain | head -1` ]]; then
     owner_repo="${DEST_REPO#https://github.com/}"
     echo $owner_repo
     export GITHUB_TOKEN=$TOKEN
-    pr_response=$(gh pr create --repo $repo_url --base $DEST_BRANCH --head $deploy_branch_name --title "deployment $DEPLOY_ID" --body "Deploy to $ENV_NAME" --label $LABEL)
+    pr_response=$(gh pr create --repo $repo_url --base $DEST_BRANCH --head $deploy_branch_name --title "deployment $DEPLOY_ID" --body "Deploy to $ENV_NAME")
     echo $pr_response
     pr_num="${pr_response##*pull/}"
     echo $pr_num
