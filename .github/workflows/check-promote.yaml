@@ -10,9 +10,6 @@ on:
       environment:
         required: true
         type: string
-      promote_environment:
-        required: true
-        type: string
 
 jobs:
   check:
