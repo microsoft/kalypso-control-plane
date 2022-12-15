@@ -30,6 +30,15 @@ jobs:
       run: |
           echo "Runinig..."
 
+  promote_to_next_environment:
+    needs: wait_for_deployment
+    runs-on: ubuntu-latest
+    steps: 
+
+    - name: Promote to next environment   
+      run: |
+          echo "Promoting..."
+
   # promote_to_next_environment:
   #   if: inputs.promoted_commit_id != ''
   #   needs: post_deployment_activities
