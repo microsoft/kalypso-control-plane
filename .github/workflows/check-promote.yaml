@@ -1,0 +1,33 @@
+name: checkpromote
+
+on:
+  workflow_call:
+    inputs:
+      promoted_commit_id:
+        description: 'Promoted Commit Id from Main'
+        required: false
+        type: string
+      environment:
+        required: true
+        type: string
+      promote_environment:
+        required: true
+        type: string
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    evironment: ${{ inputs.environment }} 
+    steps: 
+
+    - name: Wait for deployment to complete   
+      run: |
+          echo "Waiting..."
+
+  promote:
+    needs: check
+    uses: ./.github/workflows/transform.yaml
+    with:
+      promoted_commit_id: ${{ inputs.promoted_commit_id }}
+      environment: ${{ inputs.promote_environment }}
+

@@ -8,16 +8,9 @@ on:
         required: true
         type: string
       environment:
-        description: 'Environment to run tests against'
         required: true
         type: string
   
-# env:
-#   TRACKING_FOLDER: 0.0.1
-#   APP_NAME: rancher-hello-world
-#   WORKSPACE_NAME: coral-applications 
-#   IMAGE_NAME: ${{ secrets.IMAGE_NAME }} 
-
 jobs:
   promote_to_environment:
     runs-on: ubuntu-latest
@@ -27,7 +20,7 @@ jobs:
         echo "$COMMIT_ID" > Promoted_Commit_Id
       env:
         COMMIT_ID: ${{ inputs.promoted_commit_id }}
-        
+
     - name: Push Promoted Commit Id to GitOps repo
       uses: dmnemec/copy_file_to_another_repo_action@main
       env:

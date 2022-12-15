@@ -8,7 +8,7 @@ on:
 jobs:
   Do_Checks:
     runs-on: ubuntu-latest
-    steps:
+    steps:    
     - name: Do Some Checks
       run: |
           echo "Do Some Checks"

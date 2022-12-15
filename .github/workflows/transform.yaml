@@ -8,7 +8,6 @@ on:
         required: false
         type: string
       environment:
-        description: 'Environment to run tests against'
         required: true
         type: string
 
