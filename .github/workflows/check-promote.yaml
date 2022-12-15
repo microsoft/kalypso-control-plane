@@ -14,7 +14,6 @@ on:
 jobs:
   check:
     runs-on: ubuntu-latest
-    evironment: ${{ inputs.environment }} 
     steps: 
 
     - name: Wait for deployment to complete   
