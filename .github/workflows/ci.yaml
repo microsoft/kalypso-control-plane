@@ -13,11 +13,21 @@ jobs:
       run: |
           echo "Do Some Checks"
  
+  # Start_CD:
+  #   needs: Do_Checks
+  #   uses: ./.github/workflows/cd.yaml
+  #   with:
+  #     promoted_commit_id: ${{ github.sha }}
+  #     environment: dev
+  #   secrets: inherit
+
   Start_CD:
     needs: Do_Checks
-    uses: ./.github/workflows/cd.yaml
-    with:
-      promoted_commit_id: ${{ github.sha }}
-      environment: dev
-    secrets: inherit
+    runs-on: ubuntu-latest
+    steps:    
+    - name: Start CD
+      run: |
+          gh workflow run cd.yml -f environment=dev -f promoted_commit_id=$GITHUB_SHA      
+
+  
 
