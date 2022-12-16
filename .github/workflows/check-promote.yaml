@@ -32,7 +32,7 @@ jobs:
           echo "Runinig..."
 
     - name: Start CD
-      if: inputs.promoted_commit_id != '' && secrets.NEXT_ENVIRONMENT != ''
+      if: inputs.promoted_commit_id != '' && env.NEXT_ENVIRONMENT != ''
       run: |
           gh workflow run cd.yaml -f environment=$NEXT_ENVIRONMENT -f promoted_commit_id=$GITHUB_SHA      
       env:
