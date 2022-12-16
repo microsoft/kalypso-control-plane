@@ -52,7 +52,7 @@ jobs:
 
   promote_to_next_environment:
     if: inputs.promoted_commit_id != '' && needs.wait_for_deployment.outputs.next_environment != ''
-    needs: wait_for_deployment, post_deployment_activities
+    needs: [wait_for_deployment, post_deployment_activities]
     uses: ./.github/workflows/cd.yaml
     with:
       promoted_commit_id: ${{ inputs.promoted_commit_id }}
