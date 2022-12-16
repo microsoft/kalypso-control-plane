@@ -24,7 +24,7 @@ jobs:
     - name: Get Next Environment
       id: get_next_environment    
       run: |
-          echo "::set-output name=next_environment::$NEXT_ENVIRONMENT""
+          echo "::set-output name=next_environment::$NEXT_ENVIRONMENT"
       env:
        NEXT_ENVIRONMENT: ${{ secrets.NEXT_ENVIRONMENT }}
 
@@ -41,16 +41,7 @@ jobs:
       run: |
           echo "Runinig..."
 
-  # promote_to_next_environment:
-  #   needs: wait_for_deployment
-  #   runs-on: ubuntu-latest
-  #   steps: 
-
-  #   - name: Promote to next environment   
-  #     run: |
-  #         echo "Promoting..."
-
-  promote_to_next_environment:
+  cd:
     if: inputs.promoted_commit_id != '' && needs.wait_for_deployment.outputs.next_environment != ''
     needs: [wait_for_deployment, post_deployment_activities]
     uses: ./.github/workflows/cd.yaml
