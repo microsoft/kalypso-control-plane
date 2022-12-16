@@ -25,6 +25,7 @@ jobs:
       id: get_next_environment    
       run: |
           echo "::set-output name=next_environment::$NEXT_ENVIRONMENT"
+          echo "Next Environment: $NEXT_ENVIRONMENT"
       env:
        NEXT_ENVIRONMENT: ${{ secrets.NEXT_ENVIRONMENT }}
 
