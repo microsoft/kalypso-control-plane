@@ -15,8 +15,8 @@ jobs:
   wait_for_deployment:
     # environment: ${{ inputs.environment }}
     environment: dev
-    # env:
-    #   NEXT_ENVIRONMENT: secrets.NEXT_ENVIRONMENT
+    env:
+      NEXT_ENVIRONMENT: stage
     runs-on: ubuntu-latest
     steps: 
 
@@ -34,7 +34,7 @@ jobs:
 
     outputs:
         # next_environment: ${{ steps.get_next_environment.outputs.next_environment }}
-        next_environment: ${{ secrets.NEXT_ENVIRONMENT }}
+        next_environment: ${{ env.NEXT_ENVIRONMENT }}
 
 
   post_deployment_activities:
