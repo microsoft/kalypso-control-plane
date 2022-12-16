@@ -27,8 +27,7 @@ jobs:
           echo "::set-output name=next_environment::$NEXT_ENVIRONMENT"
           echo "Next Environment: $NEXT_ENVIRONMENT"
       env:
-      #  NEXT_ENVIRONMENT: ${{ secrets.NEXT_ENVIRONMENT }}
-        NEXT_ENVIRONMENT: stage
+       NEXT_ENVIRONMENT: ${{ secrets.NEXT_ENVIRONMENT }}
 
     outputs:
         next_environment: ${{ steps.get_next_environment.outputs.next_environment }}
