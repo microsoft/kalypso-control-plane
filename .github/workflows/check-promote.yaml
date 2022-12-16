@@ -13,7 +13,8 @@ on:
 
 jobs:
   wait_for_deployment:
-    environment: ${{ inputs.environment }}
+    # environment: ${{ inputs.environment }}
+    environment: dev
     runs-on: ubuntu-latest
     steps: 
 
