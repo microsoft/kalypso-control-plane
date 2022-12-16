@@ -16,7 +16,7 @@ jobs:
     # environment: ${{ inputs.environment }}
     environment: dev
     env:
-      NEXT_ENVIRONMENT: ${{ secrets.NEXT_ENVIRONMENT1 }}
+      NEXT_ENVIRONMENT: ${{ secrets.NEXT_ENVIRONMENT }}
     runs-on: ubuntu-latest
     steps: 
 
@@ -46,6 +46,9 @@ jobs:
     - name: Run postdeployment activities   
       run: |
           echo "Runinig..."
+          echo "Next Environment: $NEXT_ENVIRONMENT"
+      env:
+        NEXT_ENVIRONMENT: needs.wait_for_deployment.outputs.next_environment
 
   cd:
     if: inputs.promoted_commit_id != '' && needs.wait_for_deployment.outputs.next_environment != ''
