@@ -16,7 +16,7 @@ jobs:
     # environment: ${{ inputs.environment }}
     environment: dev
     env:
-      NEXT_ENVIRONMENT: ${{ secrets.NEXT_ENVIRONMENT }}
+      NEXT_ENVIRONMENT: ${{ secrets.NEXT_ENVIRONMENT1 }}
     runs-on: ubuntu-latest
     steps: 
 
