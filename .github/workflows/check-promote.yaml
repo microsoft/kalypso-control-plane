@@ -15,6 +15,8 @@ jobs:
   wait_for_deployment:
     # environment: ${{ inputs.environment }}
     environment: dev
+    # env:
+    #   NEXT_ENVIRONMENT: secrets.NEXT_ENVIRONMENT
     runs-on: ubuntu-latest
     steps: 
 
@@ -22,16 +24,17 @@ jobs:
       run: |
           echo "Waiting..."
 
-    - name: Get Next Environment
-      id: get_next_environment    
-      run: |
-          echo "::set-output name=next_environment::$NEXT_ENVIRONMENT"
-          echo "Next Environment: $NEXT_ENVIRONMENT"
-      env:
-       NEXT_ENVIRONMENT: ${{ secrets.NEXT_ENVIRONMENT }}
+    # - name: Get Next Environment
+    #   id: get_next_environment    
+    #   run: |
+    #       echo "::set-output name=next_environment::$NEXT_ENVIRONMENT"
+    #       echo "Next Environment: $NEXT_ENVIRONMENT"
+    #   env:
+    #    NEXT_ENVIRONMENT: ${{ secrets.NEXT_ENVIRONMENT }}
 
     outputs:
-        next_environment: ${{ steps.get_next_environment.outputs.next_environment }}
+        # next_environment: ${{ steps.get_next_environment.outputs.next_environment }}
+        next_environment: ${{ secrets.NEXT_ENVIRONMENT }}
 
 
   post_deployment_activities:
