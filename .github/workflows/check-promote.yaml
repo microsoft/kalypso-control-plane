@@ -21,6 +21,17 @@ jobs:
       run: |
           echo "Waiting..."
 
+    - name: Get Next Environment
+      id: get_next_environment    
+      run: |
+          echo "::set-output name=next_environment::$NEXT_ENVIRONMENT""
+      env:
+       NEXT_ENVIRONMENT: ${{ secrets.NEXT_ENVIRONMENT }}
+
+    outputs:
+        next_environment: ${{ steps.get_next_environment.next_environment }}
+
+
   post_deployment_activities:
     needs: wait_for_deployment
     runs-on: ubuntu-latest
@@ -30,20 +41,20 @@ jobs:
       run: |
           echo "Runinig..."
 
-  promote_to_next_environment:
-    needs: wait_for_deployment
-    runs-on: ubuntu-latest
-    steps: 
-
-    - name: Promote to next environment   
-      run: |
-          echo "Promoting..."
-
   # promote_to_next_environment:
-  #   if: inputs.promoted_commit_id != ''
-  #   needs: post_deployment_activities
-  #   uses: ./.github/workflows/cd.yaml
-  #   with:
-  #     promoted_commit_id: ${{ inputs.promoted_commit_id }}
-  #     environment: ${{ inputs.environment }}
+  #   needs: wait_for_deployment
+  #   runs-on: ubuntu-latest
+  #   steps: 
+
+  #   - name: Promote to next environment   
+  #     run: |
+  #         echo "Promoting..."
+
+  promote_to_next_environment:
+    if: inputs.promoted_commit_id != '' && needs.wait_for_deployment.outputs.next_environment != ''
+    needs: wait_for_deployment, post_deployment_activities
+    uses: ./.github/workflows/cd.yaml
+    with:
+      promoted_commit_id: ${{ inputs.promoted_commit_id }}
+      environment: ${{ needs.wait_for_deployment.outputs.next_environment }}
 
