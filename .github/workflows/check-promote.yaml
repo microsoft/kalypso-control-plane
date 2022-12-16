@@ -15,8 +15,6 @@ jobs:
   check_and_promote:
     environment: ${{ inputs.environment }}
     runs-on: ubuntu-latest
-    # env:
-    #   NEXT_ENVIRONMENT: ${{ secrets.NEXT_ENVIRONMENT }}
     steps: 
 
     - name: Wait for deployment to complete   
@@ -40,33 +38,4 @@ jobs:
         NEXT_ENVIRONMENT: ${{ secrets.NEXT_ENVIRONMENT }}
         PROMOTED_COMMIT_ID: ${{ inputs.promoted_commit_id }}
         
-
-
-
-    # - name: Get Next Environment
-    #   id: get_next_environment    
-    #   run: |
-    #       echo "::set-output name=next_environment::$NEXT_ENVIRONMENT"
-    #       echo "Next Environment: $NEXT_ENVIRONMENT"
-    #   env:
-    #    NEXT_ENVIRONMENT: ${{ secrets.NEXT_ENVIRONMENT }}
-
-    # outputs:
-    #     # next_environment: ${{ steps.get_next_environment.outputs.next_environment }}
-    #     next_environment: ${{ env.NEXT_ENVIRONMENT }}
-
-
-  # post_deployment_activities:
-  #   needs: wait_for_deployment
-  #   runs-on: ubuntu-latest
-  #   steps: 
-
-
-  # cd:
-  #   if: inputs.promoted_commit_id != '' && needs.wait_for_deployment.outputs.next_environment != ''
-  #   needs: [wait_for_deployment, post_deployment_activities]
-  #   uses: ./.github/workflows/cd.yaml
-  #   with:
-  #     promoted_commit_id: ${{ inputs.promoted_commit_id }}
-  #     environment: ${{ needs.wait_for_deployment.outputs.next_environment }}
 
