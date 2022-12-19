@@ -119,9 +119,10 @@ do
         error "There are $total_non_compliant_configs Non_Compliant configurations: \n " + $non_compliant_configs
       fi
 
+      echo "Checking for compliant configurations ..."
       compliant_configs=$(get_synched_configs 'Compliant')
       echo $compliant_configs
-      total_compliant_configs=$( echo $non_compliant_configs | jq '.total_records')
+      total_compliant_configs=$( echo $compliant_configs | jq '.total_records')
 
       if (( $total_compliant_configs == $total_configs ));
       then
@@ -135,10 +136,13 @@ do
       attempt=$(( $attempt + 1 ))
     else
       exit 0
-    fi
-
+    fi    
 
 done
+
+error "$total_compliant_configs out of $total_configs configurations are compliant. Deployment is failed \n "
+
+
 }
 
 check_parameters
