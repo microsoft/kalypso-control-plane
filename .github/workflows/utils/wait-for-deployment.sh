@@ -44,6 +44,8 @@ done
 # echo "end of list"
 
 total_attempts=60
+set -eo pipefail  # fail on error
+az extension add --name resource-graph
 
 error() {
    echo $1>&2
