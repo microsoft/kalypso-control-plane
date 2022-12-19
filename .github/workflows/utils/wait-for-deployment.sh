@@ -9,7 +9,7 @@ while getopts "r:b:c:" option;
     esac
 done
 
-total_attempts=5
+total_attempts=60
 set -eo pipefail  # fail on error
 az extension add --name resource-graph
 
