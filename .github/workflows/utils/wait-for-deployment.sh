@@ -1,33 +1,4 @@
-# az extension add --name resource-graph
-# az graph query -q "kubernetesconfigurationresources | where type == 'microsoft.kubernetesconfiguration/fluxconfigurations' | where properties.complianceState == 'Non-Compliant' | project id"
-
-# total_configs=$(az graph query -q "kubernetesconfigurationresources | where type == 'microsoft.kubernetesconfiguration/fluxconfigurations' | where properties.gitRepository.url == 'https://github.com/microsoft/kalypso-gitops' | where properties.gitRepository.repositoryRef.branch == 'dev'" | jq '.total_records')
-
-# if total_configs > 0
-#   while timeout:
-#     if non_complient > 0 then raise_exception
-#     if all_is_good then exit 
-
-# az graph query -q "kubernetesconfigurationresources | where type == 'microsoft.kubernetesconfiguration/fluxconfigurations' | where properties.sourceSyncedCommitId == 'dev/c32f8da476689f8cf309ca0e3fbbda42b3a8d387' | where properties.complianceState == 'Compliant'" | jq '.total_records'
-
-# az graph query -q "kubernetesconfigurationresources | where type == 'microsoft.kubernetesconfiguration/fluxconfigurations' | where properties.sourceSyncedCommitId == 'dev/c32f8da476689f8cf309ca0e3fbbda42b3a8d387'"
-
-# complianceState == 'Non-Compliant' | project id"
-
-
 #!/bin/bash
-
-# runtime="5 minute"
-# endtime=$(date -ud "$runtime" +%s)
-
-# while [[ $(date -u +%s) -le $endtime ]]
-# do
-#     echo "Time Now: `date +%H:%M:%S`"
-#     echo "Sleeping for 1 minute"
-#     sleep 1m
-# done
-
-# total_attempts=60
 
 while getopts "r:b:c:" option;
     do
@@ -37,11 +8,6 @@ while getopts "r:b:c:" option;
         c ) COMMIT_ID=${OPTARG};;
     esac
 done
-# echo "List input params"
-# echo $REPO_URL
-# echo $REPO_BRANCH
-# echo $COMMIT_ID
-# echo "end of list"
 
 total_attempts=5
 set -eo pipefail  # fail on error

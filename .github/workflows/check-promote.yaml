@@ -45,6 +45,7 @@ jobs:
         NEXT_ENVIRONMENT: ${{ secrets.NEXT_ENVIRONMENT }}
         PROMOTED_COMMIT_ID: ${{ inputs.promoted_commit_id }}
 
+
     - name: Start CD
       if: inputs.promoted_commit_id != '' && env.NEXT_ENVIRONMENT != ''
       run: |
