@@ -43,7 +43,7 @@ done
 # echo $COMMIT_ID
 # echo "end of list"
 
-total_attempts=60
+total_attempts=5
 set -eo pipefail  # fail on error
 az extension add --name resource-graph
 
