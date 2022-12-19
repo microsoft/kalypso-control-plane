@@ -24,6 +24,10 @@ jobs:
     - name: Checkout Source
       uses: actions/checkout@v2.3.4
 
+    - uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+        
     - name: Wait for deployment to complete   
       run: |
           .github/workflows/utils/wait-for-deployment.sh -r https://github.com/$GITOPS_REPO -b $ENVIRONMENT -c $COMMIT_ID
