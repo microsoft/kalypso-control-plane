@@ -82,7 +82,7 @@ do
 
       if (( $total_non_compliant_configs > 0 ));
       then
-        error "There are $total_non_compliant_configs Non_Compliant configurations: \n " + $non_compliant_configs
+        error "There are $total_non_compliant_configs Non_Compliant configurations:  " + $non_compliant_configs
       fi
 
       echo "Checking for compliant configurations ..."
@@ -92,10 +92,10 @@ do
 
       if (( $total_compliant_configs == $total_configs ));
       then
-        echo "All $total_configs configurations are compliant \n "        
+        echo "All $total_configs configurations are compliant "        
         exit 0
       else
-       echo "$total_compliant_configs out of $total_configs configurations are compliant. Keep polling... \n "
+       echo "$total_compliant_configs out of $total_configs configurations are compliant. Keep polling... "
       fi
 
       sleep 5
@@ -106,7 +106,7 @@ do
 
 done
 
-error "$total_compliant_configs out of $total_configs configurations are compliant. Deployment is failed \n "
+error "$total_compliant_configs out of $total_configs configurations are compliant. Deployment is failed "
 
 
 }
