@@ -46,11 +46,12 @@ jobs:
       run: |          
           ls -ltr
           echo "Manifests are generated for $PROMOTED_COMMIT_ID commit" > gitops/manifests-statement.txt
+          main/.github/workflows/utils/transform.sh main/workloads/hello-world-app.yaml main/templates/arc-flux-reconciler.yaml > gitops/drone/workloads/hello-world-app/reconciler.yaml
 
     - name: Create PR
       run: |        
         promoted=$([ -z "$COMMIT_ID" ] || echo "promoted")
-        ${{ github.workspace }}/main/.github/workflows/utils//create-pr.sh -s ${{ github.workspace }}/gitops -r "https://github.com/"${{ secrets.GITOPS_REPO }} -b ${{ inputs.environment }} -i ${{ github.run_number }} -t ${{ secrets.GITOPS_REPO_TOKEN }} -e ${{ inputs.environment }} -l $promoted
+        ${{ github.workspace }}/main/.github/workflows/utils/create-pr.sh -s ${{ github.workspace }}/gitops -r "https://github.com/"${{ secrets.GITOPS_REPO }} -b ${{ inputs.environment }} -i ${{ github.run_number }} -t ${{ secrets.GITOPS_REPO_TOKEN }} -e ${{ inputs.environment }} -l $promoted
       env:
         COMMIT_ID: ${{ inputs.promoted_commit_id }}
 
