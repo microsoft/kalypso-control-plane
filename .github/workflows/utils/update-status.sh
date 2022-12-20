@@ -13,5 +13,5 @@ gh api \
     /repos/$GITHUB_REPOSITORY/statuses/$PROMOTED_COMMIT_ID \
     -f state=$STATUS \
 -f target_url='' \
--f description=$DESCRIPTION \
--f context=$CONTEXT
+-f description="$DESCRIPTION" \
+-f context="$CONTEXT"
