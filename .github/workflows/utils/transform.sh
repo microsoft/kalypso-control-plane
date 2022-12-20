@@ -26,7 +26,7 @@ WORKLOAD_PATH=$(yq '.spec.workload.path' $WORKLOAD)
 
 echo $WORKLOAD_REPO
 gh auth login --with-token <<<"$TOKEN"
-git clone $WORKLOAD_REPO --depth 1 --branch $WORKLOAD_BRANCH workload
+# git clone $WORKLOAD_REPO --depth 1 --branch $WORKLOAD_BRANCH workload
 
 export DEPLOYMENT_TARGET_REPO=$(yq '.spec.deploymentTargets[0].manifests.repo' workload/$WORKLOAD_PATH)
 export DEPLOYMENT_TARGET_BRANCH=$(yq '.spec.deploymentTargets[0].manifests.branch' workload/$WORKLOAD_PATH)
