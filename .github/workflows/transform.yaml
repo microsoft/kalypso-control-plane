@@ -42,12 +42,13 @@ jobs:
         path: main
 
 
-    - name: Generate Manifests 
+    - name: Transform 
       working-directory: ${{ github.workspace }}
       run: |                    
-          echo "Manifests are generated for $PROMOTED_COMMIT_ID commit" > gitops/manifests-statement.txt
           yq
-          main/.github/workflows/utils/transform.sh main/workloads/hello-world-app.yaml main/templates/arc-flux-reconciler.yaml > gitops/drone/workloads/hello-world-app/reconciler.yaml
+          # echo "Manifests are generated for $PROMOTED_COMMIT_ID commit" > gitops/manifests-statement.txt
+          
+          # main/.github/workflows/utils/transform.sh main/workloads/hello-world-app.yaml main/templates/arc-flux-reconciler.yaml > gitops/drone/workloads/hello-world-app/reconciler.yaml
       env:
         TOKEN: ${{ secrets.GITOPS_REPO_TOKEN }}
 
