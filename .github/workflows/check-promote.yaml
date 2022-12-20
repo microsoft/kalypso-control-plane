@@ -51,14 +51,38 @@ jobs:
         ENVIRONMENT: ${{ inputs.environment }}
         COMMIT_ID: ${{ inputs.commit_id }}
 
+
     - name: Run postdeployment activities   
       run: |
           echo "Runinig..."
-          echo $NEXT_ENVIRONMENT
-          echo $PROMOTED_COMMIT_ID
       env:
         NEXT_ENVIRONMENT: ${{ secrets.NEXT_ENVIRONMENT }}
         PROMOTED_COMMIT_ID: ${{ inputs.promoted_commit_id }}
+
+    - name: Update Commit Status
+      if: ${{ always() }}
+      run: |
+        if [[ $FAILURE ]]; then
+          status='failure'
+          description='Failed to deploy'
+        else 
+          status='success'
+          description='Deploy'
+        end if
+
+        gh api \
+          --method POST \
+          -H "Accept: application/vnd.github+json" \
+          /repos/$GITHUB_REPOSITORY/statuses/$PROMOTED_COMMIT_ID \
+          -f state=$status \
+        -f target_url='' \
+        -f description="$description" \
+        -f context="$ENVIRONMENT environment" 
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        PROMOTED_COMMIT_ID: ${{ inputs.promoted_commit_id }}
+        ENVIRONMENT: ${{ inputs.environment }}        
+        FAILURE: ${{ failure() }}
 
 
     - name: Start CD
