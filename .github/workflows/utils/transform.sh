@@ -6,7 +6,7 @@
 
 #!/bin/bash
 
-set -eo pipefail  # fail on error
+# set -eo pipefail  # fail on error
 
 WORKLOAD=$1
 TEMPLATE=$2
