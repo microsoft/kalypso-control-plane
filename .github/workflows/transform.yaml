@@ -44,9 +44,7 @@ jobs:
 
     - name: Generate Manifests 
       working-directory: ${{ github.workspace }}
-      run: |          
-          ls -ltr
-          gh auth login --with-token TOKEN
+      run: |                    
           echo "Manifests are generated for $PROMOTED_COMMIT_ID commit" > gitops/manifests-statement.txt
           main/.github/workflows/utils/transform.sh main/workloads/hello-world-app.yaml main/templates/arc-flux-reconciler.yaml > gitops/drone/workloads/hello-world-app/reconciler.yaml
       env:
