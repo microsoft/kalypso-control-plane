@@ -8,6 +8,8 @@
 
 # set -eo pipefail  # fail on error
 
+echo "before something"
+
 WORKLOAD=$1
 TEMPLATE=$2
 echo "something"
