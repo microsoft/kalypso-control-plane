@@ -41,6 +41,7 @@ jobs:
         ref: ${{ env.PROMOTED_COMMIT_ID }} 
         path: main
 
+
     - name: Generate Manifests 
       working-directory: ${{ github.workspace }}
       run: |          
