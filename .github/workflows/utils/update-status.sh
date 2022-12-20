@@ -1,7 +1,7 @@
 # Copyright (c) Microsoft Corporation.
 # Licensed under the MIT License.
 
-#!/usr/bin/env bash
+#!/bin/bash
 
 STATUS=$1
 DESCRIPTION=$2
