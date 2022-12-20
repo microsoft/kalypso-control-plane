@@ -28,6 +28,21 @@ jobs:
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
 
+    - name: Update Commit Status
+      run: |
+        gh api \
+          --method POST \
+          -H "Accept: application/vnd.github+json" \
+          /repos/$GITHUB_REPOSITORY/statuses/$PROMOTED_COMMIT_ID \
+          -f state='pending' \
+        -f target_url='' \
+        -f description="Deploying \
+        -f context='$ENVIRONMENT environment' 
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        PROMOTED_COMMIT_ID: ${{ inputs.promoted_commit_id }}
+        ENVIRONMENT: ${{ inputs.environment }}
+
     - name: Wait for deployment to complete   
       run: |
           .github/workflows/utils/wait-for-deployment.sh -r https://github.com/$GITOPS_REPO -b $ENVIRONMENT -c $COMMIT_ID

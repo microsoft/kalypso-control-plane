@@ -45,8 +45,8 @@ jobs:
           /repos/$GITHUB_REPOSITORY/statuses/$PROMOTED_COMMIT_ID \
           -f state='success' \
         -f target_url='' \
-        -f description="Promoted to $ENVIRONMENT" \
-        -f context='continuous-integration/jenkins' 
+        -f description="Promoted" \
+        -f context='$ENVIRONMENT environment' 
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         PROMOTED_COMMIT_ID: ${{ inputs.promoted_commit_id }}
