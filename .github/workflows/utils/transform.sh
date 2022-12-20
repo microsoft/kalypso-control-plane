@@ -10,6 +10,9 @@ set -eo pipefail  # fail on error
 
 WORKLOAD=$1
 TEMPLATE=$2
+echo $WORKLOAD
+echo $TEMPLATE
+pwd
 
 WORKLOAD_NAME=$(yq '.metadata.name' $WORKLOAD)
 WORKLOAD_WORKSPACE=$(yq '.spec.workspace' $WORKLOAD)
