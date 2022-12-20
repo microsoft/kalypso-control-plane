@@ -72,7 +72,7 @@ jobs:
         ENVIRONMENT: ${{ inputs.environment }}        
 
     - name: Update Negative Commit Status
-      if: ${{ failure() && inputs.promoted_commit_id != '' }}
+      if: failure() && inputs.promoted_commit_id != ''
       run: |      
           .github/workflows/utils/update-status.sh "failure" "Failed to deploy" "$ENVIRONMENT environment"
       env:
