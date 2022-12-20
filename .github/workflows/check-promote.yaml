@@ -63,7 +63,7 @@ jobs:
         ENVIRONMENT: ${{ inputs.environment }}        
 
     - name: Update Positive Commit Status
-      if: inputs.promoted_commit_id == '' || env.NEXT_ENVIRONMENT == ''
+      if: inputs.promoted_commit_id != '' && env.NEXT_ENVIRONMENT == ''
       run: |
           .github/workflows/utils/update-status.sh "success" "Deployed" "$ENVIRONMENT environment"
       env:
