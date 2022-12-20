@@ -59,30 +59,35 @@ jobs:
         NEXT_ENVIRONMENT: ${{ secrets.NEXT_ENVIRONMENT }}
         PROMOTED_COMMIT_ID: ${{ inputs.promoted_commit_id }}
 
-    - name: Update Commit Status
-      if: ${{ always() }}
+    - name: Update Positive Commit Status
       run: |
-        if [[ $FAILURE ]]; then
-          status='failure'
-          description='Failed to deploy'
-        else 
-          status='success'
-          description='Deploy'
-        end if
-
         gh api \
           --method POST \
           -H "Accept: application/vnd.github+json" \
           /repos/$GITHUB_REPOSITORY/statuses/$PROMOTED_COMMIT_ID \
-          -f state=$status \
+          -f state='success' \
         -f target_url='' \
-        -f description="$description" \
+        -f description="Deployed" \
         -f context="$ENVIRONMENT environment" 
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         PROMOTED_COMMIT_ID: ${{ inputs.promoted_commit_id }}
         ENVIRONMENT: ${{ inputs.environment }}        
-        FAILURE: ${{ failure() }}
+
+    - name: Update Negative Commit Status
+      if: ${{ failure() }}
+        gh api \
+          --method POST \
+          -H "Accept: application/vnd.github+json" \
+          /repos/$GITHUB_REPOSITORY/statuses/$PROMOTED_COMMIT_ID \
+          -f state='failure' \
+        -f target_url='' \
+        -f description="Failed to deploy" \
+        -f context="$ENVIRONMENT environment" 
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        PROMOTED_COMMIT_ID: ${{ inputs.promoted_commit_id }}
+        ENVIRONMENT: ${{ inputs.environment }}              
 
 
     - name: Start CD
