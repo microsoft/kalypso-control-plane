@@ -37,7 +37,7 @@ jobs:
         user_name: 'Git Ops'
         commit_message: 'Promoting Commit_Id from the control plane'
 
-    - name: Update COmmit Status
+    - name: Update Commit Status
       run: |
         gh api \
           --method POST \
@@ -45,7 +45,7 @@ jobs:
           /repos/$GITHUB_REPOSITORY/statuses/$PROMOTED_COMMIT_ID \
           -f state='success' \
         -f target_url='' \
-        -f description="Promoted to $ENVIRONMENT \
+        -f description="Promoted to $ENVIRONMENT" \
         -f context='continuous-integration/jenkins' 
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
