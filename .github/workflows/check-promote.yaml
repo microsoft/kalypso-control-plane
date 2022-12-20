@@ -36,8 +36,8 @@ jobs:
           /repos/$GITHUB_REPOSITORY/statuses/$PROMOTED_COMMIT_ID \
           -f state='pending' \
         -f target_url='' \
-        -f description="Deploying \
-        -f context='$ENVIRONMENT environment' 
+        -f description="Deploying" \
+        -f context="$ENVIRONMENT environment" 
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         PROMOTED_COMMIT_ID: ${{ inputs.promoted_commit_id }}
