@@ -39,14 +39,7 @@ jobs:
 
     - name: Update Commit Status
       run: |
-        gh api \
-          --method POST \
-          -H "Accept: application/vnd.github+json" \
-          /repos/$GITHUB_REPOSITORY/statuses/$PROMOTED_COMMIT_ID \
-          -f state='pending' \
-        -f target_url='' \
-        -f description="Promoted" \
-        -f context="$ENVIRONMENT environment" 
+          .github/workflows/utils/update-status.sh "pending" "Promoted" "$ENVIRONMENT environment"      
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         PROMOTED_COMMIT_ID: ${{ inputs.promoted_commit_id }}
