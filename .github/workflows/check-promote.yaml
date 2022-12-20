@@ -30,7 +30,7 @@ jobs:
 
     - name: Update Commit Status
       run: |
-       .github/workflows/utils/update-status.sh pending Deploying "$ENVIRONMENT environment"
+          .github/workflows/utils/update-status.sh pending Deploying "$ENVIRONMENT environment"
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         PROMOTED_COMMIT_ID: ${{ inputs.promoted_commit_id }}
@@ -54,7 +54,7 @@ jobs:
 
     - name: Update Positive Commit Status
       run: |
-        .github/workflows/utils/update-status.sh "success" "Deployed" "$ENVIRONMENT environment"
+          .github/workflows/utils/update-status.sh "success" "Deployed" "$ENVIRONMENT environment"
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         PROMOTED_COMMIT_ID: ${{ inputs.promoted_commit_id }}
@@ -63,7 +63,7 @@ jobs:
     - name: Update Negative Commit Status
       if: ${{ failure() }}
       run: |      
-        .github/workflows/utils/update-status.sh "failure" "Failed to deploy" "$ENVIRONMENT environment"
+          .github/workflows/utils/update-status.sh "failure" "Failed to deploy" "$ENVIRONMENT environment"
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         PROMOTED_COMMIT_ID: ${{ inputs.promoted_commit_id }}
