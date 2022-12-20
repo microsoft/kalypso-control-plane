@@ -52,7 +52,17 @@ jobs:
         NEXT_ENVIRONMENT: ${{ secrets.NEXT_ENVIRONMENT }}
         PROMOTED_COMMIT_ID: ${{ inputs.promoted_commit_id }}
 
+    - name: Update Pending Commit Status
+      if: inputs.promoted_commit_id != '' && env.NEXT_ENVIRONMENT != ''
+      run: |
+          .github/workflows/utils/update-status.sh "pending" "Deployed" "$ENVIRONMENT environment"
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        PROMOTED_COMMIT_ID: ${{ inputs.promoted_commit_id }}
+        ENVIRONMENT: ${{ inputs.environment }}        
+
     - name: Update Positive Commit Status
+      if: inputs.promoted_commit_id == '' || env.NEXT_ENVIRONMENT == ''
       run: |
           .github/workflows/utils/update-status.sh "success" "Deployed" "$ENVIRONMENT environment"
       env:
