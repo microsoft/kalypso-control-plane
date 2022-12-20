@@ -56,7 +56,7 @@ jobs:
 
     - name: Update Positive Commit Status
       run: |
-          .github/workflows/utils/update-status.sh "success" "Created a PR" "$ENVIRONMENT environment"
+          ${{ github.workspace }}/main/.github/workflows/utils/update-status.sh "success" "Created a PR" "$ENVIRONMENT environment"
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         PROMOTED_COMMIT_ID: ${{ inputs.promoted_commit_id }}
@@ -65,7 +65,7 @@ jobs:
     - name: Update Negative Commit Status
       if: ${{ failure() }}    
       run: |
-          .github/workflows/utils/update-status.sh "failure" "Failed to create a PR" "$ENVIRONMENT environment"
+          ${{ github.workspace }}/main/.github/workflows/utils/update-status.sh "failure" "Failed to create a PR" "$ENVIRONMENT environment"
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         PROMOTED_COMMIT_ID: ${{ inputs.promoted_commit_id }}
