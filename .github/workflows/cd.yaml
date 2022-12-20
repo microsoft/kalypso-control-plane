@@ -15,6 +15,9 @@ jobs:
   promote_to_environment:
     runs-on: ubuntu-latest
     steps:
+    - name: Checkout Source
+      uses: actions/checkout@v2.3.4
+
     - name: Save Promoted Commit Id 
       run: |
         echo "$COMMIT_ID" > Promoted_Commit_Id
@@ -33,6 +36,22 @@ jobs:
         user_email: 'agent@gitops.com'
         user_name: 'Git Ops'
         commit_message: 'Promoting Commit_Id from the control plane'
+
+    - name: Update COmmit Status
+      run: |
+        gh api \
+          --method POST \
+          -H "Accept: application/vnd.github+json" \
+          /repos/$GITHUB_REPOSITORY/statuses/$PROMOTED_COMMIT_ID \
+          -f state='success' \
+        -f target_url='' \
+        -f description="Promoted to $ENVIRONMENT"" \
+        -f context='continuous-integration/jenkins' 
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        PROMOTED_COMMIT_ID: ${{ inputs.promoted_commit_id }}
+        ENVIRONMENT: ${{ inputs.environment }}
+
   
   transform:
     needs: promote_to_environment
