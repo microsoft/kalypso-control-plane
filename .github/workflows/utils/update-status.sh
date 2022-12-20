@@ -2,6 +2,7 @@
 # Licensed under the MIT License.
 
 #!/bin/bash
+set -eo pipefail  # fail on error
 
 STATUS=$1
 DESCRIPTION=$2
