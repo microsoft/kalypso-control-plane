@@ -62,6 +62,7 @@ jobs:
         PROMOTED_COMMIT_ID: ${{ inputs.promoted_commit_id }}
         ENVIRONMENT: ${{ inputs.environment }}          
 
+
     - name: Update Negative Commit Status
       if: ${{ failure() }}    
       run: |
