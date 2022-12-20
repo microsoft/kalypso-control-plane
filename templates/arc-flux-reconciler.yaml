@@ -1,29 +1,24 @@
-apiVersion: template.kalypso.io/v1alpha1
-kind: Template
+apiVersion: source.toolkit.fluxcd.io/v1beta2
+kind: GitRepository
 metadata:
-  name: arc-flux
+  name: {{DEPLOYMENT_TARGET_NAME}}
+  namespace: flux-system
 spec:
-  type: reconciler
-  templates:
-    - name: kustomize
-      manifests:
-        - apiVersion: clusterconfig.azure.com/v1alpha1 
-          kind: FluxConfig 
-          metadata: 
-            name: {{DEPLOYMENT_TARGET_NAME}}
-            namespace: {{DEPLOYMENT_TARGET_NAMESPACE}} 
-          spec: 
-            scope: namespace 
-            sourceKind: GitRepository 
-            gitRepository: 
-              url: {{DEPLOYMENT_TARGET_REPO}} 
-              timeout: 10m 
-              syncInterval: 10m 
-              repositoryRef: 
-                branch: {{DEPLOYMENT_TARGET_BRANCH}} 
-            kustomizations: 
-              - name: manifests 
-                path: {{DEPLOYMENT_TARGET_PATH}} 
-                timeout: 10m 
-                syncInterval: 10 
-                prune: true 
+  interval: 1m0s
+  url: {{DEPLOYMENT_TARGET_REPO}}
+  ref:
+    branch: {{DEPLOYMENT_TARGET_ENVIRONMENT}}
+---
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+kind: Kustomization
+metadata:
+  name: {{DEPLOYMENT_TARGET_NAME}}
+  namespace: flux-system
+spec:
+  interval: 1m0s
+  targetNamespace: {{DEPLOYMENT_TARGET_NAMESPACE}}
+  sourceRef:
+    kind: GitRepository
+    name: {{DEPLOYMENT_TARGET_NAME}}
+  path: {{DEPLOYMENT_TARGET_PATH}} 
+  prune: true
