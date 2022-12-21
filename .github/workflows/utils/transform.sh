@@ -12,10 +12,11 @@ echo "before something"
 
 WORKLOAD=$1
 TEMPLATE=$2
-echo "something"
+OUTPUT=$3
+
 echo $WORKLOAD
 echo $TEMPLATE
-pwd
+echo $OUTPUT
 
 WORKLOAD_NAME=$(yq '.metadata.name' $WORKLOAD)
 WORKLOAD_WORKSPACE=$(yq '.spec.workspace' $WORKLOAD)
@@ -25,7 +26,7 @@ WORKLOAD_BRANCH=$(yq '.spec.workload.branch' $WORKLOAD)
 WORKLOAD_PATH=$(yq '.spec.workload.path' $WORKLOAD)
 
 echo $WORKLOAD_REPO
-# gh auth login --with-token <<<"$TOKEN"
+
 repo_url="${WORKLOAD_REPO#http://}"
 repo_url="${WORKLOAD_REPO#https://}"
 repo_url="https://automated:$TOKEN@$repo_url"
@@ -41,4 +42,4 @@ export DEPLOYMENT_TARGET_NAMESPACE=$DEPLOYMENT_TARGET_ENVIRONMENT-$WORKLOAD_WORK
 
 echo $DEPLOYMENT_TARGET_NAMESPACE
 
-cat $TEMPLATE | sed -r 's/[{{]+/$/g' | sed 's/}}//g' | envsubst
+cat $TEMPLATE | sed -r 's/[{{]+/$/g' | sed 's/}}//g' | envsubst > $OUTPUT
