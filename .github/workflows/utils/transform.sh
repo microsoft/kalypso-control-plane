@@ -6,7 +6,7 @@
 
 #!/bin/bash
 
-# set -eo pipefail  # fail on error
+set -eo pipefail  # fail on error
 
 echo "before something"
 
@@ -25,8 +25,11 @@ WORKLOAD_BRANCH=$(yq '.spec.workload.branch' $WORKLOAD)
 WORKLOAD_PATH=$(yq '.spec.workload.path' $WORKLOAD)
 
 echo $WORKLOAD_REPO
-gh auth login --with-token <<<"$TOKEN"
-git clone $WORKLOAD_REPO --depth 1 --branch $WORKLOAD_BRANCH workload
+# gh auth login --with-token <<<"$TOKEN"
+repo_url="${WORKLOAD_REPO#http://}"
+repo_url="${WORKLOAD_REPO#https://}"
+repo_url="https://automated:$TOKEN@$repo_url"
+git clone $repo_url --depth 1 --branch $WORKLOAD_BRANCH workload
 
 export DEPLOYMENT_TARGET_REPO=$(yq '.spec.deploymentTargets[0].manifests.repo' workload/$WORKLOAD_PATH)
 export DEPLOYMENT_TARGET_BRANCH=$(yq '.spec.deploymentTargets[0].manifests.branch' workload/$WORKLOAD_PATH)
