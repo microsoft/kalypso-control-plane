@@ -58,6 +58,7 @@ jobs:
         COMMIT_ID: ${{ inputs.promoted_commit_id }}
 
     - name: Update Positive Commit Status
+      if: inputs.promoted_commit_id != '' && inputs.environment != ''
       run: |
           ${{ github.workspace }}/main/.github/workflows/utils/update-status.sh "pending" "Created a PR" "$ENVIRONMENT environment"
       env:
@@ -67,7 +68,7 @@ jobs:
 
 
     - name: Update Negative Commit Status
-      if: ${{ failure() }}    
+      if: failure() && inputs.promoted_commit_id != '' && inputs.environment != ''
       run: |
           ${{ github.workspace }}/main/.github/workflows/utils/update-status.sh "failure" "Failed to create a PR" "$ENVIRONMENT environment"
       env:
