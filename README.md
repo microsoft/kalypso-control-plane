@@ -2,23 +2,59 @@
 
 This is where platform team “models” the fleet. This repository is supposed to be human oriented, easy to understand, update, and review.  It has branches that represent environment stages. 
 
-This repository operates with the abstractions like `Workload Registration`, `Cluster Types`, `Configs` and `Templates`.
+## Control Plane Abstractions
 
-## Workload Registration
+This repository operates with the abstractions like `Cluster Type`, `Reconciler`, `Template`, `Config`, `Workload`, `Workload Registration`, `Deployment Target` and `Scheduling Policy`.
 
-TBD
-
-## Cluster Type
+### Cluster Type
 
 TBD
 
-## Config
+### Reconciler
 
 TBD
 
-## Templates
+### Template
 
 TBD
+
+### Config
+
+TBD
+
+### Workload
+
+TBD
+
+### Workload Registration
+
+TBD
+
+### Deployment Target
+
+TBD
+
+### Scheduling Policy
+
+TBD
+
+#### Draft Diagram
+
+![draft-abstractions-diagram](./docs/images/draft-abstractions-diagram.png)
+
+## Repository structure
+
+The *Control Plane* repository contains two types of data:
+
+- The data that is about to be promoted across environments. It lives in *main* branch and consists of:
+  - Onboarded *Workload Registrations*
+  - *Templates*
+- Environment specific configurations. This data is not promoted as it is specific for each environment. It lives in the corresponding environment branches (e.g. dev, qa, prod) and consists of: 
+  - *Cluster Types* included in the environment
+  - *Configs*
+  - *Scheduling Policies*
+
+This branching structure is the only requirement for this repo. The folder structure within the branches is totally open. You can group abstractions and organize them in the folder hierarchies on your own preference.   
 
 ## Contributing
 
