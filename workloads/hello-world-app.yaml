@@ -10,3 +10,4 @@ spec:
     branch: main
     path: workload.yaml
   workspace: kaizen-app-team
+---
