@@ -1,6 +1,5 @@
 apiVersion: source.toolkit.fluxcd.io/v1beta2
 kind: GitRepository
-,amcbkjbkjFkzdhfkjda
 metadata:
   name: {{DEPLOYMENT_TARGET_NAME}}
   namespace: flux-system
