@@ -7,4 +7,4 @@ metadata:
      region: west-us
 data:
   REGION: West US
-  DATABASE_URL: mysql://west:8806/mysql1
+  DATABASE_URL: mysql://west:8806/mysql2
