@@ -1,4 +1,4 @@
-apiVersion: cluster.kalypso.io/v1alpha1
+apiVersion: scheduler.kalypso.io/v1alpha1
 kind: ClusterType
 metadata:
   name: command-center
