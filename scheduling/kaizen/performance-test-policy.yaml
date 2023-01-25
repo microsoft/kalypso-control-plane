@@ -8,7 +8,7 @@ spec:
     labelSelector:
       matchLabels:
         purpose: performance-test
-        edge: false
+        edge: "false"
   clusterTypeSelector:
     labelSelector:
       matchLabels:
