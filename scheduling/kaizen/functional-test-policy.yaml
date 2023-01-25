@@ -3,18 +3,15 @@ kind: SchedulingPolicy
 metadata:
   name: functional-test-policy
 spec:
-  workloadSelector:
+  deploymentTargetSelector:
     workspace: kaizen-app-team
     labelSelector:
       matchLabels:
-        family: force
-  deploymentTargetSelector:
-    labelSelector:
-      matchLabels:
         purpose: functional-test
-        edge: true
+        edge: "true"
   clusterTypeSelector:
     labelSelector:
       matchLabels:
-        restricted: true
-        edge: true
+        restricted: "true"
+        edge: "true"
+

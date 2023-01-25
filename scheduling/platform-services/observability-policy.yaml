@@ -3,7 +3,7 @@ kind: SchedulingPolicy
 metadata:
   name: observability-policy
 spec:
-  workloadSelector:
+  deploymentTargetSelector:
     workspace: platform-team
     labelSelector:
       matchLabels:

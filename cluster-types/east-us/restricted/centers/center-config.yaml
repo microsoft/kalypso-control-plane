@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: center-config
   labels:
-     platform-config: true
+     platform-config: "true"
      cluster-type: command-center
 data:
   CLUSTER_NAME: Command Center 

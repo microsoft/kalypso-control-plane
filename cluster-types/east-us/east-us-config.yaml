@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: east-us-config
   labels:
-     platform-config: true
+     platform-config: "true"
      region: east-us
 data:
   REGION: East US

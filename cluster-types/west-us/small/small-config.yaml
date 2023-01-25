@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: small-config
   labels:
-     platform-config: true
+     platform-config: "true"
      cluster-type: small
 data:
-  CLUSTER_NAME: Small  
+  CLUSTER_NAME: Small

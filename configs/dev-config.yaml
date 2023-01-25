@@ -3,6 +3,6 @@ kind: ConfigMap
 metadata:
   name: dev-config
   labels:
-     platform-config: true
+     platform-config: "true"
 data:
   ENVIRONMENT: Dev

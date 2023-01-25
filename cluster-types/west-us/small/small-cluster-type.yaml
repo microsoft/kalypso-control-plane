@@ -7,3 +7,4 @@ metadata:
     size: small
 spec:
   reconciler: argocd
+  namespaceService: default

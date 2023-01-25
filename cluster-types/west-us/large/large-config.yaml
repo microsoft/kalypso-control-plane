@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: large-config
   labels:
-     platform-config: true
+     platform-config: "true"
      cluster-type: large
 data:
   CLUSTER_NAME: Large  

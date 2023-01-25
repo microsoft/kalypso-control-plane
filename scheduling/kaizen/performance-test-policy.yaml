@@ -3,12 +3,8 @@ kind: SchedulingPolicy
 metadata:
   name: performance-test-policy
 spec:
-  workloadSelector:
-    workspace: kaizen-app-team
-    labelSelector:
-      matchLabels:
-        family: force
   deploymentTargetSelector:
+    workspace: kaizen-app-team
     labelSelector:
       matchLabels:
         purpose: performance-test

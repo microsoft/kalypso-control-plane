@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: restricted-config
   labels:
-     platform-config: true
-     restricted: true
+     platform-config: "true"
+     restricted: "true"
 data:
   DATABASE_URL: mysql://restricted-host:3306/mysql

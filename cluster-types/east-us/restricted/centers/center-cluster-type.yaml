@@ -4,6 +4,7 @@ metadata:
   name: command-center
   labels: 
     region: east-us
-    restricted: true
+    restricted: "true"
 spec:
   reconciler: arc-flux
+  namespaceService: default

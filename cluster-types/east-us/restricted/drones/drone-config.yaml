@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   name: drone-config
   labels:
-     platform-config: true
+     platform-config: "true"
      cluster-type: drone
 data:
   CLUSTER_NAME: Drone
