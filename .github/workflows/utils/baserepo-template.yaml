@@ -3,7 +3,7 @@ kind: BaseRepo
 metadata:
   name: $branch
 spec:
-  repo: $repo
+  repo: https://github.com/$repo
   branch: $branch
   path: .
   commit: $promoted_commit

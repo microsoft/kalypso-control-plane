@@ -21,13 +21,26 @@ jobs:
     - name: Save Promoted Commit Id 
       run: |
          # echo "$COMMIT_ID" > Promoted_Commit_Id
-         ./save-promoted-commit.sh Promoted_Commit_Id
-         cat Promoted_Commit_Id 
+         ./save-promoted-commit.sh base-repo.yaml
+         cat base-repo.yaml 
       env:
         promoted_commit: ${{ inputs.promoted_commit_id }}
         repo: ${{ github.repository }}
         branch: ${{ github.ref }}
       working-directory: .github/workflows/utils
+
+    - name: Push Promoted Commit Id to Environment branch
+      uses: dmnemec/copy_file_to_another_repo_action@main
+      env:
+        API_TOKEN_GITHUB: ${{ secrets.GITOPS_REPO_TOKEN }}
+      with:
+        source_file: 'base-repo.yaml'
+        destination_repo: ${{ github.repository }}
+        destination_folder: '.'
+        destination_branch: ${{ inputs.environment }}
+        user_email: 'agent@gitops.com'
+        user_name: 'Git Ops'
+        commit_message: 'Promoting Commit_Id to the environment'
 
     # - name: Push Promoted Commit Id to GitOps repo
     #   uses: dmnemec/copy_file_to_another_repo_action@main
