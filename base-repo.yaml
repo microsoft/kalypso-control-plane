@@ -4,6 +4,6 @@ metadata:
   name: refs/heads/main
 spec:
   repo: https://github.com/microsoft/kalypso-control-plane
-  branch: refs/heads/main
+  branch: "refs/heads/main"
   path: .
   commit: fb609e0a9e1884194942d0a9e96737ae307bc059
