@@ -20,22 +20,26 @@ jobs:
 
     - name: Save Promoted Commit Id 
       run: |
-        echo "$COMMIT_ID" > Promoted_Commit_Id
+        # echo "$COMMIT_ID" > Promoted_Commit_Id
+       .github/workflows/utils/save-promoted-commit.sh Promoted_Commit_Id
+       cat Promoted_Commit_Id 
       env:
-        COMMIT_ID: ${{ inputs.promoted_commit_id }}
+        promoted_commit: ${{ inputs.promoted_commit_id }}
+        repo: ${{ github.repository }}
+        branch: ${{ github.ref }}
 
-    - name: Push Promoted Commit Id to GitOps repo
-      uses: dmnemec/copy_file_to_another_repo_action@main
-      env:
-        API_TOKEN_GITHUB: ${{ secrets.GITOPS_REPO_TOKEN }}
-      with:
-        source_file: 'Promoted_Commit_Id'
-        destination_repo: ${{ secrets.GITOPS_REPO }}
-        destination_folder: '.github/tracking'
-        destination_branch: ${{ inputs.environment }}
-        user_email: 'agent@gitops.com'
-        user_name: 'Git Ops'
-        commit_message: 'Promoting Commit_Id from the control plane'
+    # - name: Push Promoted Commit Id to GitOps repo
+    #   uses: dmnemec/copy_file_to_another_repo_action@main
+    #   env:
+    #     API_TOKEN_GITHUB: ${{ secrets.GITOPS_REPO_TOKEN }}
+    #   with:
+    #     source_file: 'Promoted_Commit_Id'
+    #     destination_repo: ${{ secrets.GITOPS_REPO }}
+    #     destination_folder: '.github/tracking'
+    #     destination_branch: ${{ inputs.environment }}
+    #     user_email: 'agent@gitops.com'
+    #     user_name: 'Git Ops'
+    #     commit_message: 'Promoting Commit_Id from the control plane'
 
     - name: Update Commit Status
       run: |
