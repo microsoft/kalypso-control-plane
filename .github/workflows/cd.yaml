@@ -64,10 +64,10 @@ jobs:
         ENVIRONMENT: ${{ inputs.environment }}
 
   
-  transform:
-    needs: promote_to_environment
-    uses: ./.github/workflows/transform.yaml
-    with:
-      promoted_commit_id: ${{ inputs.promoted_commit_id }}
-      environment: ${{ inputs.environment }}
-    secrets: inherit
+  # transform:
+  #   needs: promote_to_environment
+  #   uses: ./.github/workflows/transform.yaml
+  #   with:
+  #     promoted_commit_id: ${{ inputs.promoted_commit_id }}
+  #     environment: ${{ inputs.environment }}
+  #   secrets: inherit
