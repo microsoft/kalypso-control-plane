@@ -21,12 +21,13 @@ jobs:
     - name: Save Promoted Commit Id 
       run: |
          # echo "$COMMIT_ID" > Promoted_Commit_Id
-         .github/workflows/utils/save-promoted-commit.sh Promoted_Commit_Id
+         save-promoted-commit.sh Promoted_Commit_Id
          cat Promoted_Commit_Id 
       env:
         promoted_commit: ${{ inputs.promoted_commit_id }}
         repo: ${{ github.repository }}
         branch: ${{ github.ref }}
+      working-directory: .github/workflows/utils
 
     # - name: Push Promoted Commit Id to GitOps repo
     #   uses: dmnemec/copy_file_to_another_repo_action@main
