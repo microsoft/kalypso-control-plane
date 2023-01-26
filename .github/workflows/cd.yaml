@@ -34,7 +34,7 @@ jobs:
       env:
         API_TOKEN_GITHUB: ${{ secrets.GITOPS_REPO_TOKEN }}
       with:
-        source_file: 'base-repo.yaml'
+        source_file: '.github/workflows/utils/base-repo.yaml'
         destination_repo: ${{ github.repository }}
         destination_folder: '.'
         destination_branch: ${{ inputs.environment }}
