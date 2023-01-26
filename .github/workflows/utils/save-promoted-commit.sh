@@ -4,8 +4,8 @@
 #!/bin/bash
 echo $1
 
-baserepo-template="baserepo-template.yaml"
+baserepo_template="baserepo-template.yaml"
 
 set -euo pipefail
-cat $baserepo-template | envsubst > $1
+cat $baserepo_template | envsubst > $1
 
