@@ -4,6 +4,7 @@ metadata:
   name: prometheus-svc
   labels:
     type: service
+    somelabe: "true"
 spec:
   workload:
     repo: https://github.com/microsoft/kalypso-svc-src
