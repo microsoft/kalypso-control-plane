@@ -21,7 +21,7 @@ jobs:
     - name: Save Promoted Commit Id 
       run: |
          # echo "$COMMIT_ID" > Promoted_Commit_Id
-         save-promoted-commit.sh Promoted_Commit_Id
+         .github/workflows/utils/save-promoted-commit.sh Promoted_Commit_Id
          cat Promoted_Commit_Id 
       env:
         promoted_commit: ${{ inputs.promoted_commit_id }}
