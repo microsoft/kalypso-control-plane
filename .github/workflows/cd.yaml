@@ -26,7 +26,7 @@ jobs:
       env:
         promoted_commit: ${{ inputs.promoted_commit_id }}
         repo: ${{ github.repository }}
-        branch: ${{ github.ref }}
+        branch: ${{ github.ref_name }}
       working-directory: .github/workflows/utils
 
     - name: Push Promoted Commit Id to Environment branch
