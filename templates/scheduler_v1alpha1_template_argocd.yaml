@@ -1,0 +1,24 @@
+apiVersion: scheduler.kalypso.io/v1alpha1
+kind: Template
+metadata:
+  labels:
+    someLabel: "true"
+  name: argocd
+spec:
+  type: reconciler
+  manifests:
+    - apiVersion: argoproj.io/v1alpha1
+      kind: Application
+      metadata:
+        name: "{{ .DeploymentTargetName}}"
+        namespace: "{{ .Namespace}}"
+        spec:
+          project: default
+          source:
+            repoURL: "{{ .Repo}}" 
+            targetRevision: "{{ .Branch}}"
+            path: "{{ .Path}}"
+          destination:
+            name: defualt
+            namespace: "{{ .Namespace}}"  
+  

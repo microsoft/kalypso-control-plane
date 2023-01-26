@@ -1,0 +1,17 @@
+apiVersion: scheduler.kalypso.io/v1alpha1
+kind: Template
+metadata:
+  labels:
+  name: default
+spec:
+  type: namespace
+  manifests:
+    - apiVersion: v1
+      kind: Namespace
+      metadata:
+        name: "{{ .Namespace}}" 
+        labels:
+          environment: "{{ .Environment}}"
+          workspace: "{{ .Workspace}}"
+          workload: "{{ .Workload}}"
+          deploymentTarget: "{{ .DeploymentTargetName}}"   
