@@ -8,5 +8,5 @@ spec:
   workload:
     repo: https://github.com/microsoft/kalypso-app-src
     branch: main
-    path: workload.yaml
+    path: .
   workspace: kaizen-app-team
