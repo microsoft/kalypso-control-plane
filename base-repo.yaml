@@ -6,4 +6,4 @@ spec:
   repo: https://github.com/microsoft/kalypso-control-plane
   branch: main
   path: .
-  commit: 75d795c37c30d23d86d827869488fed36e2833d4
+  commit: 1e1f6070c9cdd8ab2165690a8bead95842b632bf
