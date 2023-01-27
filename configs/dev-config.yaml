@@ -6,4 +6,4 @@ metadata:
      platform-config: "true"
 data:
   ENVIRONMENT: Dev
-  SOME_COMMON_ENVIRONMENT_VARIABLE: "true"
+  SOME_COMMON_ENVIRONMENT_VARIABLE: "false"
