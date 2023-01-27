@@ -11,7 +11,7 @@ spec:
       kind: GitRepository
       metadata:
         name: "{{ .DeploymentTargetName}}"
-        namespace: flux-system8888888
+        namespace: flux-system
       spec:
         interval: 1m30s
         url: "{{ .Repo}}"
