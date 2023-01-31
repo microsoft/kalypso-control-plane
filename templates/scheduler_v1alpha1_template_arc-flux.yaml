@@ -13,7 +13,7 @@ spec:
         name: "{{ .DeploymentTargetName}}"
         namespace: flux-system
       spec:
-        interval: 2m30s
+        interval: 1m30s
         url: "{{ .Repo}}"
         ref:
           branch: "{{ .Branch}}"
