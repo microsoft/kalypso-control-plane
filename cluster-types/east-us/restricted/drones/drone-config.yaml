@@ -6,4 +6,4 @@ metadata:
      platform-config: "true"
      cluster-type: drone
 data:
-  CLUSTER_NAME: Drone1
+  CLUSTER_NAME: Drone
