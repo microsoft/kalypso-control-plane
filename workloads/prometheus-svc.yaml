@@ -1,10 +1,9 @@
-apiVersion: workload.kalypso.io/v1alpha1
+apiVersion: scheduler.kalypso.io/v1alpha1
 kind: WorkloadRegistration
 metadata:
-  name: prometheus-svc
+  name: hello-world-app
   labels:
     type: service
-    somelabe: "true"
 spec:
   workload:
     repo: https://github.com/microsoft/kalypso-svc-src

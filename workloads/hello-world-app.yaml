@@ -1,4 +1,4 @@
-apiVersion: workload.kalypso.io/v1alpha1
+apiVersion: scheduler.kalypso.io/v1alpha1
 kind: WorkloadRegistration
 metadata:
   name: hello-world-app
@@ -8,5 +8,5 @@ spec:
   workload:
     repo: https://github.com/microsoft/kalypso-app-src
     branch: main
-    path: .
+    path: workload/
   workspace: kaizen-app-team
