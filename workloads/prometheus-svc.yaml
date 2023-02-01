@@ -1,7 +1,7 @@
 apiVersion: scheduler.kalypso.io/v1alpha1
 kind: WorkloadRegistration
 metadata:
-  name: hello-world-app
+  name: prometheus-svc
   labels:
     type: service
 spec:
