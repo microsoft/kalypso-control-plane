@@ -11,7 +11,5 @@ spec:
         edge: "true"
   clusterTypeSelector:
     labelSelector:
-      matchLabels:
-        restricted: "true"
     
 
