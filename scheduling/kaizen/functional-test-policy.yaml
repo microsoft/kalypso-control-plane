@@ -10,8 +10,8 @@ spec:
         purpose: functional-test
         edge: "true"
   clusterTypeSelector:
-    labelSelector: {}
-      # matchLabels:
-      #   restricted: "true"
+    labelSelector: 
+      matchLabels:
+        restricted: "true"
     
 
