@@ -6,4 +6,4 @@ metadata:
      platform-config: "true"
      restricted: "true"
 data:
-  DATABASE_URL: mysql://restricted-host:3306/mysqlrty9990000786
+  DATABASE_URL: mysql://restricted-host:3306/mysqlrty99900007869899
