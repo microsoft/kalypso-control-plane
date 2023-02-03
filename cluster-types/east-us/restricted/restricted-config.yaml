@@ -4,6 +4,6 @@ metadata:
   name: restricted-config
   labels:
      platform-config: "true"
-     restricted: "true"
+     restricted: "false"
 data:
   DATABASE_URL: mysql://restricted-host:3306/mysqlrty999000078698gfghfgfgsdf
