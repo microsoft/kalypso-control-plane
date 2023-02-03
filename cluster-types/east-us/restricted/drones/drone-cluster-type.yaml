@@ -4,7 +4,7 @@ metadata:
   name: drone
   labels: 
     region: east-us
-    restricted: "false"
+    restricted: "true"
     edge: "true"
 spec:
   reconciler: arc-flux
