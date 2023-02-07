@@ -10,7 +10,9 @@ on:
       environment:
         required: true
         type: string
-  
+
+permissions: write-all  
+
 jobs:
   promote_to_environment:
     runs-on: ubuntu-latest

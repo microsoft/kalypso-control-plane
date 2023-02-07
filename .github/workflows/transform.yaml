@@ -11,6 +11,8 @@ on:
         required: true
         type: string
 
+permissions: write-all
+
 jobs:
   transform:
     runs-on: ubuntu-latest
