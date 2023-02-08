@@ -11,14 +11,24 @@ spec:
       kind: Application
       metadata:
         name: "{{ .DeploymentTargetName}}"
-        namespace: "{{ .Namespace}}"
-        spec:
+        namespace: argocd
+      spec:
+          destination:
+              server: https://kubernetes.default.svc
+              namespace: "{{ .Namespace}}"
           project: default
           source:
-            repoURL: "{{ .Repo}}" 
-            targetRevision: "{{ .Branch}}"
-            path: "{{ .Path}}"
-          destination:
-            name: defualt
-            namespace: "{{ .Namespace}}"  
-  
+              path: "{{ .Path}}"
+              repoURL: "{{ .Repo}}"
+              targetRevision: "{{ .Branch}}"
+              directory:
+                  recurse: true
+                  include: '*.yaml'
+                  exclude: 'kustomization.yaml'
+          syncPolicy:
+              automated:
+                  prune: true
+                  selfHeal: true
+                  allowEmpty: false
+              syncOptions:
+              - CreateNamespace=true
