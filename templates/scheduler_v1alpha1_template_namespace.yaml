@@ -14,4 +14,5 @@ spec:
           environment: "{{ .Environment}}"
           workspace: "{{ .Workspace}}"
           workload: "{{ .Workload}}"
-          deploymentTarget: "{{ .DeploymentTargetName}}"   
+          deploymentTarget: "{{ .DeploymentTargetName}}"
+          someLabel: some-value
