@@ -1,0 +1,9 @@
+apiVersion: scheduler.kalypso.io/v1alpha1
+kind: GitOpsRepo
+metadata:
+  name: stage
+spec:
+  repo: https://github.com/microsoft/kalypso-gitops
+  branch: stage
+  path: .
+
