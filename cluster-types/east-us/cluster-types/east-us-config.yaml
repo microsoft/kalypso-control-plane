@@ -1,9 +1,13 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: small-config
+  name: east-us-config
   labels:
      platform-config: "true"
-     cluster-type: small
+     region: east-us
 data:
-  CLUSTER_NAME: Small
+  REGION: East US
+  
+
+  
+  
