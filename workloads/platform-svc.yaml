@@ -1,7 +1,7 @@
 apiVersion: scheduler.kalypso.io/v1alpha1
 kind: WorkloadRegistration
 metadata:
-  name: prometheus-svc
+  name: platform-svc
   labels:
     type: service
 spec:
