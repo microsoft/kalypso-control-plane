@@ -9,7 +9,6 @@ spec:
       matchLabels:
         stack: observability
   clusterTypeSelector:
-    labelSelector:
+    labelSelector: 
       matchLabels:
-        edge: "false"
-
+        size: large
