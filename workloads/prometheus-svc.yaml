@@ -8,5 +8,5 @@ spec:
   workload:
     repo: https://github.com/microsoft/kalypso-svc-src
     branch: main
-    path: ./prometheus/
+    path: ./workloads
   workspace: platform-team
