@@ -2,6 +2,7 @@
 
 This is where platform team “models” the fleet. This repository is supposed to be human oriented, easy to understand, update, and review.  It has branches that represent environment stages. 
 
+<!--
 ## Control Plane Abstractions
 
 This repository operates with the abstractions like `Cluster Type`, `Reconciler`, `Template`, `Config`, `Workload`, `Workload Registration`, `Deployment Target` and `Scheduling Policy`.
@@ -41,6 +42,8 @@ TBD
 #### Draft Diagram
 
 ![draft-abstractions-diagram](./docs/images/draft-abstractions-diagram.png)
+
+-->
 
 ## Repository structure
 
