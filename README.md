@@ -2,48 +2,11 @@
 
 This is where platform team “models” the fleet. This repository is supposed to be human oriented, easy to understand, update, and review.  It has branches that represent environment stages. 
 
-<!--
 ## Control Plane Abstractions
 
 This repository operates with the abstractions like `Cluster Type`, `Reconciler`, `Template`, `Config`, `Workload`, `Workload Registration`, `Deployment Target` and `Scheduling Policy`.
 
-### Cluster Type
-
-TBD
-
-### Reconciler
-
-TBD
-
-### Template
-
-TBD
-
-### Config
-
-TBD
-
-### Workload
-
-TBD
-
-### Workload Registration
-
-TBD
-
-### Deployment Target
-
-TBD
-
-### Scheduling Policy
-
-TBD
-
-#### Draft Diagram
-
-![draft-abstractions-diagram](./docs/images/draft-abstractions-diagram.png)
-
--->
+Refer to the full list of abstractions in the [Kalypso Scheduler](https://github.com/microsoft/kalypso-scheduler#kalypso-control-plane-abstractions) repository.
 
 ## Repository structure
 
