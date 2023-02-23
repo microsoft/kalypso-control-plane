@@ -22,6 +22,35 @@ The *Control Plane* repository contains two types of data:
 
 This branching structure is the only requirement for this repo. The folder structure within the branches is totally open. You can group abstractions and organize them in the folder hierarchies on your own preference.   
 
+## Promotional Flow
+
+Kalypso Control Plane repository implements the [promotional flow](https://github.com/microsoft/kalypso#promotion-and-scheduling) with a chain of GitHub Actions Workflows:
+
+![Kalypso-workflows](./docs/images/Kalypso-workflows.png)
+
+### CI 
+
+The CI workflow is triggered on a commit to the *main* branch. It contains a placeholder to perform some quality and security checks and invokes the [CD](#cd) workflow to promote the change to the first environment in the chain (e.g. *Dev*).
+
+The workflow updates the Git commit status with the result of the CI process.
+
+### CD
+
+The CD workflow promotes the change to the environment by saving the *main* branch commit id to `base-repo.yaml` file in the environment branch. This event starts the scheduling and transformation flow that ends up with a PR to the GitOps repository. 
+
+The workflow updates the Git commit status specifying that the change has been promoted to the environment.
+
+### Check Promote
+
+Merging of the PR to the GitOps repository starts the Check Promote workflow in the control plane repository. This workflow polls Azure Resource Graph, waiting until all registered [GitOps configurations](https://learn.microsoft.com/en-us/azure/azure-arc/kubernetes/conceptual-gitops-flux2) in the subscription are in compliance with the last PR to the GitOps repository.
+
+If one of the clusters reports failure, the workflow fails. It reports the failure Git commit status and the whole promotion flow stops.
+
+Once all configurations are compliant, the workflow runs a placeholder for the post-deployment activities, such as automated testing and reports to the Git commit status the fact of the successful deployment to the environment. 
+
+At the end, the workflow invokes the [CD](#cd) workflow to promote the change in the *main* branch to the next environment (e.g. *Stage*). The whole process stops when there is no next environment in the chain.    
+
+
 ## Contributing
 
 This project welcomes contributions and suggestions.  Most contributions require you to agree to a

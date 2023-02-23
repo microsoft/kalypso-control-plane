@@ -44,19 +44,6 @@ jobs:
         user_name: 'Git Ops'
         commit_message: 'Promoting Commit_Id to the environment'
 
-    # - name: Push Promoted Commit Id to GitOps repo
-    #   uses: dmnemec/copy_file_to_another_repo_action@main
-    #   env:
-    #     API_TOKEN_GITHUB: ${{ secrets.GITOPS_REPO_TOKEN }}
-    #   with:
-    #     source_file: 'Promoted_Commit_Id'
-    #     destination_repo: ${{ secrets.GITOPS_REPO }}
-    #     destination_folder: '.github/tracking'
-    #     destination_branch: ${{ inputs.environment }}
-    #     user_email: 'agent@gitops.com'
-    #     user_name: 'Git Ops'
-    #     commit_message: 'Promoting Commit_Id from the control plane'
-
     - name: Update Commit Status
       run: |
           .github/workflows/utils/update-status.sh "pending" "Promoted" "$ENVIRONMENT environment"      
@@ -64,12 +51,3 @@ jobs:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         PROMOTED_COMMIT_ID: ${{ inputs.promoted_commit_id }}
         ENVIRONMENT: ${{ inputs.environment }}
-
-  
-  # transform:
-  #   needs: promote_to_environment
-  #   uses: ./.github/workflows/transform.yaml
-  #   with:
-  #     promoted_commit_id: ${{ inputs.promoted_commit_id }}
-  #     environment: ${{ inputs.environment }}
-  #   secrets: inherit
