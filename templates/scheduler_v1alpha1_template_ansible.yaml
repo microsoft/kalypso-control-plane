@@ -1,0 +1,20 @@
+apiVersion: scheduler.kalypso.io/v1alpha1
+kind: Template
+metadata:
+  labels:
+    someLabel: "true"
+  name: ansible
+spec:
+  type: reconciler
+  manifests:
+    - |
+      ---
+      - hosts: localhost
+        tasks:
+        - name: install cron job (ansible-pull)
+          cron:
+            name: {{ .DeploymentTargetName}}
+            minute: "*/1"
+            user: {{ .Environment}}-{{ .DeploymentTargetName}}
+            job: |
+              ansible-pull -o -U {{ .Manifests.repo}} -C {{ .Manifests.branch}} {{ .Manifests.path}} > $HOME/ansible-pull-{{ .DeploymentTargetName}}.log 2>$HOME/ansible-pull-{{ .DeploymentTargetName}}.err 

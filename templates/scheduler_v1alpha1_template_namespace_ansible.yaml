@@ -1,0 +1,22 @@
+apiVersion: scheduler.kalypso.io/v1alpha1
+kind: Template
+metadata:
+  labels:
+  name: ansible-user
+spec:
+  type: namespace
+  manifests:
+    - |
+      ---
+      - hosts: localhost
+        tasks:
+        - name: create a user
+          ansible.builtin.user:
+              name: {{ .Environment}}-{{ .DeploymentTargetName}}
+        - name: cope platform configs
+          ansible.builtin.copy:
+              src: ./platform-config.sh
+              dest: /home/{{ .Environment}}-{{ .DeploymentTargetName}}/platform-config.sh
+              owner: {{ .Environment}}-{{ .DeploymentTargetName}}
+              group: {{ .Environment}}-{{ .DeploymentTargetName}}
+              mode: u+rw,g-wx,o-rwx

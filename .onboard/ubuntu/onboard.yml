@@ -1,0 +1,9 @@
+---
+- hosts: localhost
+  tasks:
+  - name: reconcile
+    cron:
+      name: "platform-gitops-{{repo_branch}}-{{repo_folder}}"
+      minute: "*/1"
+      job: "/opt/kalypso/reconcile.sh {{repo_url}} {{repo_branch}} {{repo_folder}} > /opt/kalypso/log/platform-gitops-{{repo_branch}}-{{repo_folder}}.log 2>/opt/kalypso/log/platform-gitops-{{repo_branch}}-{{repo_folder}}.err"
+        
