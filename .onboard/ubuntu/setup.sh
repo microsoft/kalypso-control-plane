@@ -21,7 +21,7 @@ print_prerequisites() {
 
 check_prerequisites || print_prerequisites
 
-kalypso_home=/opt/kalypso1
+kalypso_home=/opt/kalypso
 
 mkdir -p $kalypso_home/log
 
