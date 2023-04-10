@@ -2,25 +2,26 @@ apiVersion: scheduler.kalypso.io/v1alpha1
 kind: Template
 metadata:
   labels:
-    someLabel: "true"
+    someLabel: "false"
   name: argocd
 spec:
   type: reconciler
   manifests:
-    - apiVersion: argoproj.io/v1alpha1
+    - |
+      apiVersion: argoproj.io/v1alpha1
       kind: Application
       metadata:
-        name: "{{ .DeploymentTargetName}}"
+        name: {{ .DeploymentTargetName}}
         namespace: argocd
       spec:
           destination:
-              server: https://kubernetes.default.svc
-              namespace: "{{ .Namespace}}"
+              namespace: {{ .Namespace}}
+              server: https://kubernetes.default.svc              
           project: default
           source:
-              path: "{{ .Path}}"
-              repoURL: "{{ .Repo}}"
-              targetRevision: "{{ .Branch}}"
+              path: {{ .Manifests.path}}
+              repoURL: {{ .Manifests.repo}}
+              targetRevision: {{ .Manifests.branch}}
               directory:
                   recurse: true
                   include: '*.yaml'
@@ -32,3 +33,4 @@ spec:
                   allowEmpty: false
               syncOptions:
               - CreateNamespace=true
+

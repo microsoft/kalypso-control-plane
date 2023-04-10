@@ -7,28 +7,30 @@ metadata:
 spec:
   type: reconciler
   manifests:
-    - apiVersion: source.toolkit.fluxcd.io/v1beta2
+    - |
+      apiVersion: source.toolkit.fluxcd.io/v1beta2
       kind: GitRepository
       metadata:
-        name: "{{ .DeploymentTargetName}}"
+        name: {{ .DeploymentTargetName}}
         namespace: flux-system
       spec:
         interval: 30s
-        url: "{{ .Repo}}"
+        url: {{ .Manifests.repo}}
         ref:
-          branch: "{{ .Branch}}"
+          branch: {{ .Manifests.branch}}
         secretRef:
             name: repo-secret    
-    - apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
+    - |
+      apiVersion: kustomize.toolkit.fluxcd.io/v1beta2
       kind: Kustomization
       metadata:
-        name: "{{ .DeploymentTargetName}}"
+        name: {{ .DeploymentTargetName}}
         namespace: flux-system
       spec:
         interval: 30s
-        targetNamespace: "{{ .Namespace}}"
+        targetNamespace: {{ .Namespace}}
         sourceRef:
           kind: GitRepository
-          name: "{{ .DeploymentTargetName}}"
-        path: "{{ .Path}}" 
+          name: {{ .DeploymentTargetName}}
+        path: {{ .Manifests.path}} 
         prune: true
