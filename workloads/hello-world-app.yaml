@@ -4,6 +4,7 @@ metadata:
   name: hello-world-app
   labels:
     type: application
+    awesomeness: high
 spec:
   workload:
     repo: https://github.com/kaizentm/kalypso-app-src
