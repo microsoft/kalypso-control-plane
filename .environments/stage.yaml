@@ -5,7 +5,7 @@ metadata:
   name: stage
 spec:
   controlPlane:
-    repo: https://github.com/microsoft/kalypso-control-plane
+    repo: https://github.com/kaizentm/kalypso-control-plane
     branch: stage
     path: .
   
