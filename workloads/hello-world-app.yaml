@@ -5,6 +5,7 @@ metadata:
   labels:
     type: application
     awesomeness: high
+    security: low
 spec:
   workload:
     repo: https://github.com/kaizentm/kalypso-app-src
