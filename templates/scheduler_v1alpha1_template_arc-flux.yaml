@@ -8,6 +8,7 @@ spec:
   type: reconciler
   manifests:
     - |
+      mnbbmn
       apiVersion: source.toolkit.fluxcd.io/v1beta2
       kind: GitRepository
       metadata:
