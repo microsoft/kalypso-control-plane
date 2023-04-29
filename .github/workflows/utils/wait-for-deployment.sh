@@ -58,7 +58,7 @@ get_all_configs() {
 
 get_synched_configs() {
     complianceState=$1
-    sycnhed_query="kubernetesconfigurationresources | where type == 'microsoft.kubernetesconfiguration/fluxconfigurations' | where properties.sourceSyncedCommitId == ""'""$REPO_BRANCH/$COMMIT_ID""'"" | where properties.complianceState == ""'""$complianceState""'"""
+    sycnhed_query="kubernetesconfigurationresources | where type == 'microsoft.kubernetesconfiguration/fluxconfigurations' | where properties.sourceSyncedCommitId has ""'""$COMMIT_ID""'"" | where properties.complianceState == ""'""$complianceState""'"""
     az graph query -q "$sycnhed_query"
 }
 
