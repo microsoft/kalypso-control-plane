@@ -1,5 +1,21 @@
 #!/bin/bash
 
+# Waits for the deployment to complete. 
+# Polls ARG with the specified interval until the deployment is complete or the timeout is reached.
+# 
+# Usage:
+#   wait_for_deployment.sh flags
+
+# Flags:
+#   -r       GitOps Repository URL (e.g. https://github.com/microsoft/kalypso-gitops)
+#   -b       Environment branch (e.g. dev)
+#   -c       Commit Id  (e.g. c32f8da476689f8cf309ca0e3fbbda42b3a8d387)
+
+# Example:
+#   wait_for_deployment.sh -r https://github.com/microsoft/kalypso-gitops -b dev -c c32f8da476689f8cf309ca0e3fbbda42b3a8d387
+
+
+
 while getopts "r:b:c:" option;
     do
     case "$option" in
@@ -9,7 +25,9 @@ while getopts "r:b:c:" option;
     esac
 done
 
-total_attempts=60
+total_attempts=60 # 5 minutes
+poll_interval=5 # seconds
+
 set -eo pipefail  # fail on error
 az extension add --name resource-graph
 
@@ -51,18 +69,20 @@ check_parameters() {
     fi
 }
 
+# Queries the Azure Resource Graph for all FluxConfigurations in the specified repository and branch
 get_all_configs() {
     total_query="kubernetesconfigurationresources | where type == 'microsoft.kubernetesconfiguration/fluxconfigurations' | where properties.gitRepository.url == ""'""$REPO_URL""'"" | where properties.gitRepository.repositoryRef.branch == ""'""$REPO_BRANCH""'"""
     az graph query -q "$total_query"
 }
 
+# Queries the Azure Resource Graph for all FluxConfigurations in the specified repository and branch that are synched and in the specified compliance state
 get_synched_configs() {
     complianceState=$1
-    sycnhed_query="kubernetesconfigurationresources | where type == 'microsoft.kubernetesconfiguration/fluxconfigurations' | where properties.sourceSyncedCommitId == ""'""$REPO_BRANCH/$COMMIT_ID""'"" | where properties.complianceState == ""'""$complianceState""'"""
+    sycnhed_query="kubernetesconfigurationresources | where type == 'microsoft.kubernetesconfiguration/fluxconfigurations' | where properties.sourceSyncedCommitId == ""'""$REPO_BRANCH@sha1:$COMMIT_ID""'"" | where properties.complianceState == ""'""$complianceState""'"""
     az graph query -q "$sycnhed_query"
 }
 
-
+# Waiting loop for the deployment to complete. Waits until all configurations are synched and compliant or the timeout is reached.
 wait_for_deployment() {
 attempt=1
 while [ $attempt -lt $total_attempts ]
@@ -98,7 +118,7 @@ do
        echo "$total_compliant_configs out of $total_configs configurations are compliant. Keep polling... "
       fi
 
-      sleep 5
+      sleep $poll_interval
       attempt=$(( $attempt + 1 ))
     else
       exit 0
@@ -113,5 +133,4 @@ error "$total_compliant_configs out of $total_configs configurations are complia
 
 check_parameters
 wait_for_deployment
-
 
