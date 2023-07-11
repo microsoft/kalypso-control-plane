@@ -85,7 +85,7 @@ jobs:
     - name: Start CD
       if: inputs.promoted_commit_id != '' && env.NEXT_ENVIRONMENT != ''
       run: |
-          gh workflow run cd.yaml -f environment=$NEXT_ENVIRONMENT -f promoted_commit_id=$GITHUB_SHA      
+          gh workflow run cd.yaml -f environment=$NEXT_ENVIRONMENT -f promoted_commit_id=$PROMOTED_COMMIT_ID      
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         NEXT_ENVIRONMENT: ${{ secrets.NEXT_ENVIRONMENT }}
