@@ -6,5 +6,6 @@ metadata:
     region: west-us
     size: large
 spec:
-  reconciler: argocd
+  reconciler: arc-flux
   namespaceService: default
+  configType: configmap
